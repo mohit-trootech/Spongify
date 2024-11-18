@@ -8,7 +8,7 @@ from utils.constants import SpogifySettings as Settings
 
 # APPEND_SLASH -  Append slash to the end of URLs
 # =====================================================
-APPEND_SLASH = False
+APPEND_SLASH = True
 
 # BASE_DIR - Project ROOT Directory Path Reference
 # =====================================================

@@ -40,3 +40,15 @@ class EmailTemplatesChoice:
         (ARTIST_REGISTRATION_APPROVAL, _("Artist Registration Approval")),
         (ARTIST_REGISTRATION_REJECTION, _("Artist Registration Rejection")),
     )
+
+
+class Templates:
+    """Spongify Template Names"""
+
+    INDEX = "index.html"
+
+
+class Reverse:
+    """Urls Reverse"""
+
+    HOME = "home"

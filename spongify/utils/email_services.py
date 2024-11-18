@@ -54,19 +54,47 @@ class EmailService:
             Email templates choice
         """
         try:
-            return EmailTemplate.objects.get(choice=choice)
+            template = EmailTemplate.objects.get(choice=choice)
+            return template
         except EmailTemplate.DoesNotExist:
             return None
 
-    def send_registration_mail(self, user: str, email: str):
-        """Send Registeration Mail to User"""
+    def send_registration_mail(self, user):
+        """
+        Send Registration Mail to User
+
+        Parameters
+        ----------
+        user :
+            user's instance
+        """
         template = self.get_email_template(choice=EmailTemplatesChoice.REGISTRATION)
+        if not template:
+            return "Email Template Not Found"
+        return self.send_email(
+            subject=template.subject.format(user=user.username),
+            body=template.body.format(user=user.username),
+            to_email=[user.email],
+            template=template.template.format(user=user.username),
+            is_html=template.is_html,
+        )
+
+    def password_reset_mail_otp(self, user):
+        """
+        Send Password Reset Mail to User
+
+        Parameters
+        ----------
+        user :
+            user's instance
+        """
+        template = self.get_email_template(choice=EmailTemplatesChoice.RESET_PASSWORD)
         if not template:
             return "Email Template Not Found"
         return self.send_email(
             subject=template.subject.format(user=user),
             body=template.body.format(user=user),
-            to_email=[email],
+            to_email=[user.email],
             template=template.template.format(user=user),
             is_html=template.is_html,
         )

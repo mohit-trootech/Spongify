@@ -12,6 +12,4 @@ User = get_model(app_name="accounts", model_name="User")
 @receiver(post_save, sender=User)
 def send_mail_after_user_creation(sender, instance, created, **kwargs):
     if created and instance.account_type == Choices.CUSTOMER:
-        customer_registration_mail.delay(
-            user=instance.username.title(), email=instance.email
-        )
+        customer_registration_mail.delay(id=instance.id)

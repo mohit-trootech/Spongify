@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>{%block title%}Spongify{%endblock%}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/bulma.css' %}" />
+  <!-- Fontawesome Library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  {% block styling %} {% endblock %}
+  <link rel="shortcut icon" href="{% static 'img/logo.png' %}" type="image/x-icon" />
+</head>
+<!-- Preload Javascripts -->
+<script src="{% static 'js/index.js' %}"></script>
+<script src="{% static 'js/jQuery.js'  %}"></script>
+<script src="{% static 'js/tailwind.js'  %}"></script>
+{% block js %}
+{% endblock %}
+{%include "spongify/toast.html" %}
+
+<body>
+  <!-- Spongify Base -->
+  {% block content %} {% endblock %}
+</body>
+
+</html>
