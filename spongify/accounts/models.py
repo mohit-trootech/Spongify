@@ -3,6 +3,12 @@ from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
 from accounts.constants import VerboseNames, Choices
 from django_extensions.db.fields import CreationDateTimeField
+from django.utils.timezone import now, timedelta
+from random import randint
+
+
+def _generate_otp():
+    return randint(100000, 999999)
 
 
 class User(AbstractUser):
@@ -44,12 +50,12 @@ class User(AbstractUser):
 
 
 class Otp(models.Model):
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         "accounts.User",
         on_delete=models.CASCADE,
         related_name=VerboseNames.OTP_O2O_USER,
     )
-    otp = models.CharField(max_length=6)
+    otp = models.CharField(max_length=6, default=_generate_otp)
     created = CreationDateTimeField()
     expiry = models.DateTimeField()
 
@@ -59,3 +65,11 @@ class Otp(models.Model):
     class Meta:
         verbose_name = VerboseNames.OTP
         verbose_name_plural = VerboseNames.OTPS
+
+    def save(self, *args, **kwargs):
+        self.expiry = now() + timedelta(minutes=10)
+        super().save(*args, **kwargs)
+
+    @property
+    def is_expired(self):
+        return now() > self.expiry

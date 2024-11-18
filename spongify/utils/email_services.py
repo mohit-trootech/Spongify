@@ -5,6 +5,7 @@ from utils.base_utils import get_model
 from spongify.models import EmailTemplatesChoice
 
 EmailTemplate = get_model(app_name="spongify", model_name="EmailTemplate")
+Otp = get_model(app_name="accounts", model_name="Otp")
 
 
 class EmailService:
@@ -42,6 +43,15 @@ class EmailService:
             msg.attach_alternative(template, "text/html")
         msg.send(fail_silently=False)
         return "Email Sent Successfully"
+
+    @staticmethod
+    def _handle_otp(user):
+        """Check Whether OTP Already There For User"""
+        try:
+            Otp.objects.get(user=user).delete()
+        except Otp.DoesNotExist:
+            pass
+        return Otp.objects.create(user=user)
 
     @staticmethod
     def get_email_template(choice: str):
@@ -89,12 +99,34 @@ class EmailService:
             user's instance
         """
         template = self.get_email_template(choice=EmailTemplatesChoice.RESET_PASSWORD)
+        otp = self._handle_otp(user=user)
+        expiry = otp.expiry.strftime("%B %d %Y, %H:%M %p %Z")
         if not template:
             return "Email Template Not Found"
         return self.send_email(
-            subject=template.subject.format(user=user),
-            body=template.body.format(user=user),
+            subject=template.subject,
+            body=template.body.format(otp=otp.otp, expiry=expiry),
             to_email=[user.email],
-            template=template.template.format(user=user),
+            template=template.template.format(otp=otp.otp, expiry=expiry),
+            is_html=template.is_html,
+        )
+
+    def password_reset_mail_done(self, user):
+        """
+        Send Password Reset Confirm Mail to user
+
+        Parameters
+        ----------
+        user :
+            user's instance
+        """
+        template = self.get_email_template(
+            choice=EmailTemplatesChoice.RESET_PASSWORD_DONE
+        )
+        return self.send_email(
+            subject=template.subject,
+            body=template.body.format(username=user.username),
+            to_email=[user.email],
+            template=template.template,
             is_html=template.is_html,
         )

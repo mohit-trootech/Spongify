@@ -7,7 +7,6 @@ from django.forms import (
     CharField,
     NumberInput,
     Form,
-    ValidationError,
     PasswordInput,
 )
 from accounts.constants import FormsClasses, FormHelpText, FormLabels, FormPlaceholder
@@ -80,8 +79,29 @@ class PasswordResetForm(Form):
         ),
     )
 
-    def clean_email(self):
-        email = self.cleaned_data.get("email")
-        if User.objects.filter(email=email).exists():
-            raise ValidationError("Email already exists.")
-        return email
+
+class PasswordResetDoneForm(Form):
+    otp1 = CharField(
+        required=True,
+        widget=TextInput(attrs={"class": FormsClasses.OTP_CLASS}),
+    )
+    otp2 = CharField(
+        required=True,
+        widget=TextInput(attrs={"class": FormsClasses.OTP_CLASS}),
+    )
+    otp3 = CharField(
+        required=True,
+        widget=TextInput(attrs={"class": FormsClasses.OTP_CLASS}),
+    )
+    otp4 = CharField(
+        required=True,
+        widget=TextInput(attrs={"class": FormsClasses.OTP_CLASS}),
+    )
+    otp5 = CharField(
+        required=True,
+        widget=TextInput(attrs={"class": FormsClasses.OTP_CLASS}),
+    )
+    otp6 = CharField(
+        required=True,
+        widget=TextInput(attrs={"class": FormsClasses.OTP_CLASS}),
+    )

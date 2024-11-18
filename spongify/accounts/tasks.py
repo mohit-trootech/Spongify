@@ -41,3 +41,17 @@ def password_reset_mail(id: int):
        Email Service Response
     """
     return EmailService().password_reset_mail_otp(user=User.objects.get(id=id))
+
+
+@shared_task
+def password_reset_done(id: int):
+    """
+    Send Password Reset Mail to User after OTP verification
+
+
+    Parameters
+    ----------
+    id : int
+        user's primary key
+    """
+    return EmailService().password_reset_mail_done(user=User.objects.get(id=id))
