@@ -11,60 +11,21 @@
     <main class="flex-1 bg-zinc-900">
       <!-- Profile Section -->
       {% include 'accounts/sections/profile.html' %}
-      <!-- Recent Tracks Section -->
-      <div class="p-6" id="artists">
-        <div class="flex flex-row items-center justify-between">
-          <h2 class="text-2xl font-semibold">Tocados recentemente</h2>
-          <span class="text-sm text-zinc-400">Mostrar tudo</span>
-        </div>
-        <div class="mt-4 -ml-3 grid grid-cols-5 gap-2">
-          <div class="flex flex-col p-3 cursor-pointer gap-2 rounded-md hover:bg-white/5">
-            <img class="w-48 h-48 rounded-md" src="https://i.scdn.co/image/ab67616d00001e023562c44947cd0b7696f95178"
-              class="w-full" width="{120}" height="{120}" alt="Foto do álbum" />
-            <div>
-              <span class="font-semibold">Stone Preacher</span>
-              <span class="text-sm text-zinc-400">Understone</span>
-            </div>
-          </div>
-          <div class="flex flex-col p-3 cursor-pointer gap-2 rounded-md hover:bg-white/5">
-            <img class="w-48 h-48 rounded-md" src="https://i.scdn.co/image/ab67616d00001e023562c44947cd0b7696f95178"
-              class="w-full" width="{120}" height="{120}" alt="Foto do álbum" />
-            <div>
-              <span class="font-semibold">Stone Preacher</span>
-              <span class="text-sm text-zinc-400">Understone</span>
-            </div>
-          </div>
-          <div class="flex flex-col p-3 cursor-pointer gap-2 rounded-md hover:bg-white/5">
-            <img class="w-48 h-48 rounded-md" src="https://i.scdn.co/image/ab67616d00001e023562c44947cd0b7696f95178"
-              class="w-full" width="{120}" height="{120}" alt="Foto do álbum" />
-            <div>
-              <span class="font-semibold">Stone Preacher</span>
-              <span class="text-sm text-zinc-400">Understone</span>
-            </div>
-          </div>
-          <div class="flex flex-col p-3 cursor-pointer gap-2 rounded-md hover:bg-white/5">
-            <img class="w-48 h-48 rounded-md" src="https://i.scdn.co/image/ab67616d00001e023562c44947cd0b7696f95178"
-              class="w-full" width="{120}" height="{120}" alt="Foto do álbum" />
-            <div>
-              <span class="font-semibold">Stone Preacher</span>
-              <span class="text-sm text-zinc-400">Understone</span>
-            </div>
-          </div>
-          <div class="flex flex-col p-3 cursor-pointer gap-2 rounded-md hover:bg-white/5">
-            <img class="w-48 h-48 rounded-md" src="https://i.scdn.co/image/ab67616d00001e023562c44947cd0b7696f95178"
-              class="w-full" width="{120}" height="{120}" alt="Foto do álbum" />
-            <div>
-              <span class="font-semibold">Stone Preacher</span>
-              <span class="text-sm text-zinc-400">Understone</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- Favorite Tracks Section -->
+      {% include 'accounts/sections/favorites.html' %}
+      <!-- Playlist Section -->
+      {% include 'accounts/sections/playlists.html' %}
+      <!-- Settings Section -->
+      {% include 'accounts/sections/settings.html' %}
     </main>
   </div>
 </div>
 {% include 'accounts/dialog_profile_update.html' %}
 {%endblock %}
+{% block js %}
+<script src="{% static 'js/scrollspy.js'  %}"></script>
+{% endblock %}
+
 <div class="bg-gray-900 text-white">
   <div class="max-w-4xl mx-auto px-6">
 
