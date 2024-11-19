@@ -52,6 +52,7 @@ class Reverse:
     LOGOUT = "logout"
     PASSWORD_RESET = "password-reset"
     PASSWORD_RESET_DONE = "password-reset-done"
+    PROFILE = "profile"
 
 
 class FormsClasses:
@@ -65,7 +66,7 @@ class FormsClasses:
     TEXT_AREA = "textarea textarea-primary textarea-sm textarea-bordererd w-full"
     TOGGLE = "toggle toggle-primary toggle-sm "
     SELECT = "select select-primary select-sm select-bordererd w-full"
-
+    IMAGE_INPUT = "file-input file-input-bordered file-input-primary w-full"
     # Otp Classes
     OTP_CLASS = "w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-slate-900 hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 focus:ring-opacity"
 
@@ -86,6 +87,15 @@ class FormLabels:
     PASSWORD_RESET = {
         "email": "Email",
     }
+    PROFILE = {
+        "image": "Profile Image",
+        "first_name": "First Name",
+        "last_name": "Last Name",
+        "email": "Email",
+        "phone_number": "Phone Number",
+        "gender": "Gender",
+        "age": "Age",
+    }
 
 
 class FormPlaceholder:
@@ -104,6 +114,15 @@ class FormPlaceholder:
     PASSWORD_RESET = {
         "email": "Email",
     }
+    PROFILE = {
+        "image": "Choose your Profile image",
+        "first_name": "Enter your first name",
+        "last_name": "Enter your last name",
+        "email": "Enter your email",
+        "phone_number": "Enter your phone number",
+        "gender": "Select your gender",
+        "age": "Enter your age",
+    }
 
 
 class FormHelpText:
@@ -119,6 +138,11 @@ class FormHelpText:
     }
     PASSWORD_RESET = {
         "email": "Enter your email address below and we'll send you a password reset link.",
+    }
+    PROFILE = {
+        "image": "Choose your Profile image",
+        "email": "Please choose a valid email, this is used as your primary email",
+        "phone_number": "Please enter your phone number in format: +91-XXXXXXXXXX",
     }
 
 
@@ -150,6 +174,7 @@ class Templates:
     PASSWORD_RESET_DONE = "accounts/password_reset_done.html"
     LOGIN = "accounts/login.html"
     REGISTER = "accounts/register.html"
+    PROFILE = "accounts/profile.html"
 
 
 class UrlPaths:
@@ -160,3 +185,4 @@ class UrlPaths:
     PASSWORD_RESET_DONE = "/accounts/password-reset-done/"
     LOGIN = "/accounts/login/"
     REGISTER = "/accounts/register/"
+    PROFILE = "/accounts/profile/{username}"

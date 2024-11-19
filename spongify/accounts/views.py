@@ -1,21 +1,22 @@
-from django.views.generic import FormView
+from django.views.generic import FormView, UpdateView
 from accounts.forms import (
     RegisterForm,
     LoginForm,
     PasswordResetForm,
     PasswordResetDoneForm,
+    ProfileForm,
 )
 from django.contrib.messages import info
 from django.contrib.auth import authenticate, login, logout
 from utils.base_utils import get_model
 from django.contrib.auth.password_validation import validate_password
-from django.urls import reverse_lazy
 from django.views import View
 from accounts.tasks import (
     password_reset_mail,
     password_reset_done as password_reset_done_mail,
 )
 from accounts.constants import AuthErrors, AuthMessages, Templates, UrlPaths
+from django.shortcuts import redirect
 
 User = get_model(app_name="accounts", model_name="User")
 
@@ -67,10 +68,10 @@ login_view = LoginView.as_view()
 
 
 class LogoutView(View):
-    def get(self):
-        logout(self.request)
-        info(self.request, AuthMessages.LOGOUT_SUCCESS)
-        return reverse_lazy("accounts:login")
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        info(request, AuthMessages.LOGOUT_SUCCESS)
+        return redirect(UrlPaths.LOGIN)
 
 
 logout_view = LogoutView.as_view()
@@ -138,3 +139,20 @@ class PasswordResetDone(FormView):
 
 
 password_reset_done = PasswordResetDone.as_view()
+
+
+class ProfileView(UpdateView):
+    """Profile Update View"""
+
+    template_name = Templates.PROFILE
+    form_class = ProfileForm
+    success_url = UrlPaths.PROFILE
+
+    def get_object(self, *args, **kwargs):
+        return self.request.user
+
+    def get_success_url(self):
+        return self.success_url.format(username=self.request.user.username)
+
+
+profile_view = ProfileView.as_view()

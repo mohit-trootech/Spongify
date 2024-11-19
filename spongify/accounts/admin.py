@@ -14,6 +14,7 @@ class UserAdmin(UserAdmin):
             "Other Info",
             {
                 "fields": (
+                    "image",
                     "age",
                     "phone_number",
                     "account_verified",

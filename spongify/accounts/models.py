@@ -11,7 +11,13 @@ def _generate_otp():
     return randint(100000, 999999)
 
 
+def _upload_to(self, filename):
+    return f"user/{self.username}/{filename}"
+
+
 class User(AbstractUser):
+    image = models.ImageField(upload_to=_upload_to, blank=True, null=True)
+
     email = models.EmailField(verbose_name=VerboseNames.EMAIL, unique=True)
     age = models.IntegerField(verbose_name=VerboseNames.AGE, blank=True, null=True)
     phone_number = PhoneNumberField(

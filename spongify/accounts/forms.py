@@ -8,6 +8,8 @@ from django.forms import (
     NumberInput,
     Form,
     PasswordInput,
+    ClearableFileInput,
+    Select,
 )
 from accounts.constants import FormsClasses, FormHelpText, FormLabels, FormPlaceholder
 from utils.base_utils import get_model
@@ -57,10 +59,52 @@ class LoginForm(Form):
         widget=PasswordInput(
             attrs={
                 "class": FormsClasses.PASSWORD_INPUT,
-                "placeholder": FormPlaceholder.LOGIN["password"],
+                "placehoSelectlder": FormPlaceholder.LOGIN["password"],
             }
         ),
     )
+
+
+class ProfileForm(ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            "image",
+            "first_name",
+            "last_name",
+            "email",
+            "phone_number",
+            "gender",
+            "age",
+        ]
+        help_texts = {}
+        widgets = {}
+        for field in fields:
+            help_texts[field] = (
+                FormHelpText.PROFILE[field]
+                if field in ["image", "email", "phone_number"]
+                else None
+            )
+            input_type = TextInput
+            input_class = FormsClasses.INPUT
+            if field == "email":
+                input_type = EmailInput
+            elif field == "image":
+                input_type = ClearableFileInput
+                input_class = FormsClasses.IMAGE_INPUT
+            elif field == "age":
+                input_type = NumberInput
+            elif field == "gender":
+                input_type = Select
+                input_class = FormsClasses.SELECT
+            form_class = FormsClasses.INPUT
+            widgets[field] = input_type(
+                attrs={
+                    "class": input_class,
+                    "placeholder": FormPlaceholder.PROFILE[field],
+                    "label": FormLabels.PROFILE[field],
+                }
+            )
 
 
 class PasswordResetForm(Form):
