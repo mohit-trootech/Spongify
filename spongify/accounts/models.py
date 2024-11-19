@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
 from accounts.constants import VerboseNames, Choices
+from django_extensions.db.models import TimeStampedModel
 from django_extensions.db.fields import CreationDateTimeField
 from django.utils.timezone import now, timedelta
 from random import randint
@@ -15,7 +16,7 @@ def _upload_to(self, filename):
     return f"user/{self.username}/{filename}"
 
 
-class User(AbstractUser):
+class User(AbstractUser, TimeStampedModel):
     image = models.ImageField(upload_to=_upload_to, blank=True, null=True)
 
     email = models.EmailField(verbose_name=VerboseNames.EMAIL, unique=True)
@@ -35,17 +36,6 @@ class User(AbstractUser):
         blank=True,
         null=True,
     )
-    account_type = models.CharField(
-        default=Choices.CUSTOMER,
-        choices=Choices.ACCOUNT_TYPE_CHOICE,
-        verbose_name=VerboseNames.ACCOUNT_TYPE,
-        max_length=50,
-        blank=True,
-        null=True,
-    )
-    created = CreationDateTimeField()
-
-    modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.username

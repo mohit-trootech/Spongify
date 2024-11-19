@@ -1,0 +1,73 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block title%}Login{%endblock%}
+{%block styling%}
+<link rel="stylesheet" href="{% static 'css/accounts.css' %}" />
+{%endblock%}
+{%block content%}
+<div class="relative min-h-screen flex">
+    <div
+        class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white">
+        <div
+            class="w-full h-full hidden md:flex flex-auto items-center justify-start p-10 bg-purple-900 text-white bg-no-repeat bg-cover relative">
+            <div class="absolute bg-gradient-to-b from-blue-900 to-gray-900 opacity-75 inset-0 z-0">
+            </div>
+            <a href="https://codepen.io/uidesignhub" target="_blank" title="codepen aji"
+                class="flex absolute top-5 text-center text-gray-100 right-5 focus:outline-none"><img
+                    src="{% static 'img/logo.png' %}" alt="aji"
+                    class="object-cover mx-auto w-8 h-8 rounded-full w-10 h-10" />
+                <p class="text-xl ml-3">Spongify</p>
+            </a>
+            <!-- Center Align Form -->
+            <div
+                class="flex flex-col justify-center items-center w-full h-full z-[99] bg-white py-10 px-5 max-w-md mx-auto rounded-lg shadow-xl">
+                <div>
+                    <img src="{% static 'img/logo.png' %}" class="h-24 w-24 mx-auto mb-2" />
+                    <p class="text-slate-900 text-sm text-center mb-5 italic">
+                        A creator is someone who makes things. They could be a musician, artist, writer, or anything
+                        else.
+                        At Spongify, creators can share their music with the world.
+
+                    </p>
+                </div>
+                <form id="otp-form" method="post" class="max-w-md w-full">
+                    {%csrf_token%}
+                    <div class="flex items-center justify-center gap-3 w-full">
+                        {%for field in form %}
+                        {{field}}
+                        {%endfor%}
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <button class="btn btn-primary transition ease-in duration-150 scale-95 hover:scale-100">
+                            <i class="fa fa-right-to-bracket"></i>
+                            <span>Creator Login</span>
+                        </button>
+                        <div>
+                            <p class="text-slate-900 font-light text-sm text-center mb-5 italic cursor-help">
+                                Use Button Below to Join the Creator Community.
+                            </p>
+                        </div>
+                        <div>
+                            <a role="button"
+                                class="btn text-gray-100 btn-success w-full  transition ease-in duration-150 scale-95 hover:scale-100"
+                                href="{% url 'music:creator-join' %}" rel="noopener noreferrer">Join as Creator</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <ul class="circles">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

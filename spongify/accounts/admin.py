@@ -19,7 +19,6 @@ class UserAdmin(UserAdmin):
                     "phone_number",
                     "account_verified",
                     "gender",
-                    "account_type",
                 )
             },
         ),
@@ -31,12 +30,10 @@ class UserAdmin(UserAdmin):
         "phone_number",
         "account_verified",
         "gender",
-        "account_type",
     )
     list_filter = (
         "account_verified",
         "gender",
-        "account_type",
     )
     search_fields = (
         "username",

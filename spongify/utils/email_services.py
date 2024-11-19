@@ -130,3 +130,74 @@ class EmailService:
             template=template.template,
             is_html=template.is_html,
         )
+
+    def artist_signup_mail(self, user):
+        """
+        Send Creator Signup Mail to User
+
+
+        Parameters
+        ----------
+        user :
+            user's instance
+        """
+        template = self.get_email_template(
+            choice=EmailTemplatesChoice.ARTIST_REGISTRATION_REQUEST
+        )
+        if not template:
+            return "Email Template Not Found"
+        return self.send_email(
+            subject=template.subject,
+            body=template.body.format(username=user.username),
+            to_email=[user.email],
+            template=template.template.format(username=user.username),
+            is_html=template.is_html,
+        )
+
+    def artist_signup_approval_mail(self, user):
+        """
+        Send Creator Signup Approval Mail to User
+
+
+        Parameters
+        ----------
+        user :
+            user's instance
+        """
+
+        template = self.get_email_template(
+            choice=EmailTemplatesChoice.ARTIST_REGISTRATION_APPROVAL
+        )
+        if not template:
+            return "Email Template Not Found"
+        return self.send_email(
+            subject=template.subject,
+            body=template.body.format(username=user.username),
+            to_email=[user.email],
+            template=template.template,
+            is_html=template.is_html,
+        )
+
+    def artist_signup_rejection_mail(self, user):
+        """
+
+        Send Creator Signup Rejection Mail to User
+
+
+        Parameters
+        ----------
+        user :
+            user's instance
+        """
+        template = self.get_email_template(
+            choice=EmailTemplatesChoice.ARTIST_REGISTRATION_REJECTION
+        )
+        if not template:
+            return "Email Template Not Found"
+        return self.send_email(
+            subject=template.subject,
+            body=template.body,
+            to_email=[user.email],
+            template=template.template,
+            is_html=template.is_html,
+        )
