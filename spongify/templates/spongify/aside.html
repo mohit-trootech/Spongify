@@ -1,60 +1,62 @@
 {% load static %}
-<aside class="flex flex-col w-72 bg-zinc-950 text-zinc-100 p-2 gap-2">
-  <a href="{% url 'home' %}" class="flex items-center ps-2.5 my-2">
-    <img
-      src="{% static 'img/logo.png' %}"
-      alt="Spongify Logo"
-      class="h-10 w-10 me-2"
-    />
-    <span
-      class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
-      >Spongify</span
-    >
+<aside class="flex flex-col sticky top-0 h-screen w-72 bg-zinc-950 text-zinc-100 p-2 gap-2">
+  <a href="{% url 'home' %}" class="flex items-start ps-2.5 my-2">
+    <img src="{% static 'img/logo.png' %}" alt="Spongify Logo" class="h-10 w-10 me-2" />
+    <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Spongify</span>
   </a>
-  <nav class="p-4 bg-zinc-900/80 space-y-5 rounded-md">
-    <a class="flex items-center gap-3 text-sm font-semibold">
-      <svg class="w-4 h-4 text-current fill-current" viewBox="0 0 24 24">
-        <path
-          d="M12.5 3.247a1 1 0 0 0-1 0L4 7.577V20h4.5v-6a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v6H20V7.577l-7.5-4.33zm-2-1.732a3 3 0 0 1 3 0l7.5 4.33a2 2 0 0 1 1 1.732V21a1 1 0 0 1-1 1h-6.5a1 1 0 0 1-1-1v-6h-3v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.577a2 2 0 0 1 1-1.732l7.5-4.33z"
-        ></path>
-      </svg>
-      Início
+  <nav class="p-4 h-full bg-zinc-900/80 space-y-5 rounded-md">
+    <a href="{% url 'home' %}"
+      class="flex justify-start gap-3 text-sm font-semibold btn {%if request.path == '/'%}btn-success{%endif%}">
+      <i class="fa fa-home"></i>
+      Home
     </a>
-    <a class="flex items-center gap-3 text-sm font-semibold">
-      <svg class="w-4 h-4 text-current fill-current" viewBox="0 0 24 24">
-        <path
-          d="M10.533 1.27893C5.35215 1.27893 1.12598 5.41887 1.12598 10.5579C1.12598 15.697 5.35215 19.8369 10.533 19.8369C12.767 19.8369 14.8235 19.0671 16.4402 17.7794L20.7929 22.132C21.1834 22.5226 21.8166 22.5226 22.2071 22.132C22.5976 21.7415 22.5976 21.1083 22.2071 20.7178L17.8634 16.3741C19.1616 14.7849 19.94 12.7634 19.94 10.5579C19.94 5.41887 15.7138 1.27893 10.533 1.27893ZM3.12598 10.5579C3.12598 6.55226 6.42768 3.27893 10.533 3.27893C14.6383 3.27893 17.94 6.55226 17.94 10.5579C17.94 14.5636 14.6383 17.8369 10.533 17.8369C6.42768 17.8369 3.12598 14.5636 3.12598 10.5579Z"
-        ></path>
-      </svg>
-      Buscar
+    <a href=""
+      class="flex justify-start gap-3 text-sm font-semibold btn {%if request.path == '/search/'%}btn-neutral{%endif%}">
+      <i class="fa fa-magnifying-glass"></i>
+      Search
     </a>
+    <a href="{%  url 'accounts:profile' request.user.username %}"
+      class="flex justify-start gap-3 text-sm font-semibold btn">
+      <i class="fa fa-list"></i>
+      Your Library
+    </a>
+    <a href="" class="flex justify-start gap-3 text-sm font-semibold btn">
+      <i class="fa fa-plus"></i>
+      Create Playlist
+    </a>
+    {% if request.user.artist %}
+    <p class="text-sm font-semibold text-zinc-400 italic">
+      Creator Mode: {{request.user.artist.stage_name}}
+    </p>
+    <a href="{% url 'music:create-album' %}"
+      class="flex justify-start gap-3 text-sm font-semibold btn {% if 'create-album' in request.path%}btn-success{%endif%}">
+      <i class="fa-brands fa-itunes-note"></i>
+      Create New Album
+    </a>
+    <a href="" class="flex justify-start gap-3 text-sm font-semibold btn">
+      <i class="fa fa-expand"></i>
+      View Albums
+    </a>
+    {% endif %}
   </nav>
   <div class="p-4 bg-zinc-900/80 text-zinc-100 space-y-5 rounded-md">
-    <div class="flex flex-row items-center justify-between">
-      <div class="flex flex-row items-center gap-2">
+    <a role="button" href="{% url 'accounts:logout' %}" class="flex flex-row items-center justify-between">
+      <div class="flex flex-row items-center gap-2 italic capitalize font-semibold">
         <svg class="w-4 h-4 text-current fill-current" viewBox="0 0 24 24">
           <path
-            d="M3 22a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1zM15.5 2.134A1 1 0 0 0 14 3v18a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V6.464a1 1 0 0 0-.5-.866l-6-3.464zM9 2a1 1 0 0 0-1 1v18a1 1 0 1 0 2 0V3a1 1 0 0 0-1-1z"
-          ></path>
+            d="M3 22a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1zM15.5 2.134A1 1 0 0 0 14 3v18a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V6.464a1 1 0 0 0-.5-.866l-6-3.464zM9 2a1 1 0 0 0-1 1v18a1 1 0 1 0 2 0V3a1 1 0 0 0-1-1z">
+          </path>
         </svg>
-        Sua biblioteca
+        {% if request.user.first_name %}
+        {{request.user.get_full_name}}
+        {%else%}
+        {{request.user.username}}
+        {%endif%}
       </div>
       <div class="flex flex-row items-center text-zinc-400 gap-4">
         <button>
-          <svg class="w-4 h-4 text-current fill-current" viewBox="0 0 16 16">
-            <path
-              d="M15.25 8a.75.75 0 0 1-.75.75H8.75v5.75a.75.75 0 0 1-1.5 0V8.75H1.5a.75.75 0 0 1 0-1.5h5.75V1.5a.75.75 0 0 1 1.5 0v5.75h5.75a.75.75 0 0 1 .75.75z"
-            ></path>
-          </svg>
-        </button>
-        <button>
-          <svg class="w-4 h-4 text-current fill-current" viewBox="0 0 16 16">
-            <path
-              d="M7.19 1A.749.749 0 0 1 8.47.47L16 7.99l-7.53 7.521a.75.75 0 0 1-1.234-.815.75.75 0 0 1 .174-.243l5.72-5.714H.75a.75.75 0 1 1 0-1.498h12.38L7.41 1.529a.749.749 0 0 1-.22-.53z"
-            ></path>
-          </svg>
+          <i class="fa fa-right-from-bracket  "></i>
         </button>
       </div>
-    </div>
-  </div>
+    </a>
 </aside>

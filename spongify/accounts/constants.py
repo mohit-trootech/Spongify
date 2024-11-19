@@ -55,22 +55,6 @@ class Reverse:
     PROFILE = "profile"
 
 
-class FormsClasses:
-    """Custom Classes for Forms"""
-
-    INPUT = "input input-primary input-sm input-bordererd w-full"
-    PASSWORD_INPUT = (
-        "input input-primary input-sm input-bordererd w-full password-toggle"
-    )
-    INPUT = "input input-primary input-sm input-bordererd w-full"
-    TEXT_AREA = "textarea textarea-primary textarea-sm textarea-bordererd w-full"
-    TOGGLE = "toggle toggle-primary toggle-sm "
-    SELECT = "select select-primary select-sm select-bordererd w-full"
-    IMAGE_INPUT = "file-input file-input-bordered file-input-primary w-full"
-    # Otp Classes
-    OTP_CLASS = "w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-slate-900 hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 focus:ring-opacity"
-
-
 class FormLabels:
     """Accounts Form Label"""
 

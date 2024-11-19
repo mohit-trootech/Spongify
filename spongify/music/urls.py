@@ -1,10 +1,7 @@
 from django.urls import path
-from music.views import creator_view, creator_join
+from music.views import create_album
 from music.constants import Reverse
 
 app_name = "music"
 
-urlpatterns = [
-    path("creator/", creator_view, name=Reverse.CREATOR),
-    path("creator/join/", creator_join, name=Reverse.CREATOR_JOIN),
-]
+urlpatterns = [path("create-album/", create_album, name=Reverse.CREATE_ALBUM)]

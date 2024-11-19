@@ -46,9 +46,38 @@ class Templates:
     """Spongify Template Names"""
 
     INDEX = "index.html"
+    CREATOR_TEMPLATE = "creator/creator.html"
 
 
 class Reverse:
     """Urls Reverse"""
 
     HOME = "home"
+    CREATOR = "creator"
+    CREATOR_JOIN = "creator-join"
+
+
+class AuthErrors:
+    """Music Authentication Errors"""
+
+    NOT_REGISTERED = "User is not authenticated, Login to continue."
+    ARTIST_NOT_FOUND = "Artist Not Found!"
+    USER_NOT_FOUND = "User Not Found!"
+
+
+class AuthMessages:
+    """Music Authentication Messages"""
+
+    CREATOR_REGISTRATION_JOINED = (
+        "You successfully joined the waitlist, Check email for updates."
+    )
+    ALREADY_JOINED = _("You have already joined the waitlist. Wait for approval.")
+    VERIFIED_ARTIST = _("You are a verified artist, Welcome {user}!")
+
+
+class UrlPaths:
+    """Music Url Paths"""
+
+    HOME = "/"
+    CREATOR = "/creator/"
+    CREATOR_JOIN = "/creator/join/"

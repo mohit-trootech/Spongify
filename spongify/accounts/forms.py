@@ -11,7 +11,8 @@ from django.forms import (
     ClearableFileInput,
     Select,
 )
-from accounts.constants import FormsClasses, FormHelpText, FormLabels, FormPlaceholder
+from utils.constants import FormsClasses
+from accounts.constants import FormHelpText, FormLabels, FormPlaceholder
 from utils.base_utils import get_model
 
 User = get_model(app_name="accounts", model_name="User")

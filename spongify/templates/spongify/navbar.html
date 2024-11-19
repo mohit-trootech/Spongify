@@ -48,16 +48,16 @@
                         </div>
                         <div class="flex text-gray-500 my-1 capitalize mb-2">
                           {% if request.user.gender %}
-                          <span class="mr-3 ">
+                          <span class="mr-1.5 self-center">
                             {{request.user.gender}}
                           </span>
-                          <span class="mr-3 border-r border-gray-200"> </span>
+                          <span class="mr-1.5 border-r border-gray-200"> </span>
                           {% endif %}
                           {% if request.user.age %}
-                          <span class="mr-3 ">
+                          <span class="mr-1.5 self-center">
                             {{request.user.age}}
                           </span>
-                          <span class="mr-3 border-r border-gray-200"> </span>
+                          <span class="mr-1.5 border-r border-gray-200"> </span>
                           {% endif %}
                           <span class="lowercase flex items-center gap-2">
                             {{request.user.email}}

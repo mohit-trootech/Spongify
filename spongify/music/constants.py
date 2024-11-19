@@ -68,34 +68,14 @@ class VerboseNames:
 
 
 class Templates:
-    """Music Template Paths"""
+    """Music App Templates"""
 
-    CREATOR_TEMPLATE = "music/creator.html"
+    CREATE_ALBUM = "music/create_album.html"
+    LIST_ALBUM = "music/list_album.html"
 
 
 class Reverse:
-    """Music Template Urls Reverse"""
+    """Music App Urls Reverse"""
 
-    CREATOR = "creator"
-    CREATOR_JOIN = "creator-join"
-
-
-class AuthErrors:
-    """Music Authentication Errors"""
-
-    NOT_REGISTERED = "User is not authenticated, Login to continue."
-
-
-class AuthMessages:
-    """Music Authentication Messages"""
-
-    CREATOR_REGISTRATION_JOINED = (
-        "You successfully joined the waitlist, Check email for updates."
-    )
-
-
-class UrlPaths:
-    """Music Url Paths"""
-
-    CREATOR = "/spongify/creator/"
-    CREATOR_JOIN = "/spongify/creator/join/"
+    CREATE_ALBUM = "create-album"
+    LIST_ALBUM = "list-album"
