@@ -13,13 +13,14 @@ from django_extensions.db.models import (
     TitleSlugDescriptionModel,
     TimeStampedModel,
     ActivatorModel,
+    AutoSlugField,
 )
 from music.constants import VerboseNames, Choice
 
 
 def _album_cover_upload_to(instance, filename):
-    return "album_covers/{name}/{filename}".format(
-        name=instance.name, filename=filename
+    return "album_covers/{slug}/{filename}".format(
+        slug=instance.slug, filename=filename
     )
 
 
@@ -52,6 +53,7 @@ class Album(Model):
     cover_art = ImageField(
         upload_to=_album_cover_upload_to, verbose_name=VerboseNames.COVER_ART
     )
+    slug = AutoSlugField("slug", populate_from="name")
 
     def __str__(self):
         return VerboseNames.ALBUM_STR.format(

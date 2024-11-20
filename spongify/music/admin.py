@@ -12,7 +12,8 @@ class ArtistAdmin(admin.ModelAdmin):
 
 @admin.register(Album)
 class AlbumAdmin(admin.ModelAdmin):
-    list_display = ("name", "artist", "release_date")
+    readonly_fields = ("slug",)
+    list_display = ("name", "slug", "artist", "release_date")
     search_fields = ("name", "artist__stage_name")
     list_filter = ("release_date", "artist")
 
