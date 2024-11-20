@@ -1,0 +1,16 @@
+{% load static %}
+{% if 'create-album' in request.path %}
+<h1 class="mt-10 text-5xl font-semibold relative text-white">Create a New Album</h1>
+<p class="mt-4 text-lg relative text-gray-300 italic text-sm">
+    Easily compile your new musical masterpiece. Add individual songs, existing albums, or create a fresh playlist
+    below. Give your album a captivating title, upload unique artwork, and provide a compelling description to engage
+    your listeners.
+</p>
+{% endif %}
+{% if 'create-song' in request.path %}
+<h1 class="mt-10 text-5xl font-semibold relative text-white">Add Songs to Album</h1>
+<p class="mt-4 text-lg relative text-gray-300 italic text-sm">
+    Effortlessly add tracks to your album. Select songs from your library or upload new ones. Ensure your tracks are
+    high-quality and properly tagged for optimal listening experience.
+</p>
+{% endif %}

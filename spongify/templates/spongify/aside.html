@@ -4,7 +4,7 @@
     <img src="{% static 'img/logo.png' %}" alt="Spongify Logo" class="h-10 w-10 me-2" />
     <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Spongify</span>
   </a>
-  <nav class="p-4 h-full bg-zinc-900/80 space-y-5 rounded-md">
+  <nav class="p-4 h-full bg-zinc-900/80 space-y-5 rounded-md overflow-auto">
     <a href="{% url 'home' %}"
       class="flex justify-start gap-3 text-sm font-semibold btn {%if request.path == '/'%}btn-success{%endif%}">
       <i class="fa fa-home"></i>
@@ -32,6 +32,11 @@
       class="flex justify-start gap-3 text-sm font-semibold btn {% if 'create-album' in request.path%}btn-success{%endif%}">
       <i class="fa-brands fa-itunes-note"></i>
       Create New Album
+    </a>
+    <a href="{% url 'music:create-song' %}"
+      class="flex justify-start gap-3 text-sm font-semibold btn {% if 'create-song' in request.path%}btn-success{%endif%}">
+      <i class="fa-brands fa-itunes-note"></i>
+      Add Songs to Album
     </a>
     <a href="" class="flex justify-start gap-3 text-sm font-semibold btn">
       <i class="fa fa-expand"></i>

@@ -5,9 +5,9 @@ from django.db.models import (
     Model,
     OneToOneField,
     CASCADE,
-    RESTRICT,
     FileField,
     ManyToManyField,
+    DateTimeField,
 )
 from django_extensions.db.models import (
     TitleSlugDescriptionModel,
@@ -15,15 +15,16 @@ from django_extensions.db.models import (
     ActivatorModel,
 )
 from music.constants import VerboseNames, Choice
-from django_extensions.db.fields import CreationDateTimeField
 
 
 def _album_cover_upload_to(instance, filename):
-    return "album_covers/{id}/{filename}".format(id=instance.id, filename=filename)
+    return "album_covers/{name}/{filename}".format(
+        name=instance.name, filename=filename
+    )
 
 
 def _tracks_upload_to(instance, filename):
-    return "tracks/{id}/{filename}".format(id=instance.id, filename=filename)
+    return "tracks/{slug}/{filename}".format(slug=instance.slug, filename=filename)
 
 
 class Artist(Model):
@@ -31,7 +32,7 @@ class Artist(Model):
         max_length=100, unique=True, verbose_name=VerboseNames.STAGE_NAME
     )
     user = OneToOneField(
-        "accounts.User", on_delete=RESTRICT, related_name=VerboseNames.ARTIST_O2O_USER
+        "accounts.User", on_delete=CASCADE, related_name=VerboseNames.ARTIST_O2O_USER
     )
 
     def __str__(self):
@@ -45,9 +46,9 @@ class Artist(Model):
 class Album(Model):
     name = CharField(max_length=100)
     artist = ForeignKey(
-        "music.Artist", on_delete=RESTRICT, related_name=VerboseNames.ALBUM_FK_ARTIST
+        "music.Artist", on_delete=CASCADE, related_name=VerboseNames.ALBUM_FK_ARTIST
     )
-    release_date = CreationDateTimeField(verbose_name=VerboseNames.RELEASE_DATE)
+    release_date = DateTimeField(verbose_name=VerboseNames.RELEASE_DATE)
     cover_art = ImageField(
         upload_to=_album_cover_upload_to, verbose_name=VerboseNames.COVER_ART
     )
@@ -74,7 +75,7 @@ class Track(TitleSlugDescriptionModel, ActivatorModel, TimeStampedModel):
     )
 
     def __str__(self):
-        return f"{self.album.title} - {self.title}"
+        return f"{self.album.name} - {self.title}"
 
     class Meta:
         verbose_name = VerboseNames.TRACK

@@ -72,6 +72,7 @@ class Templates:
 
     CREATE_ALBUM = "music/create_album.html"
     LIST_ALBUM = "music/list_album.html"
+    CREATE_SONG = "music/create_song.html"
 
 
 class Reverse:
@@ -79,3 +80,56 @@ class Reverse:
 
     CREATE_ALBUM = "create-album"
     LIST_ALBUM = "list-album"
+    CREATE_SONG = "create-song"
+    LIST_SONG = "list-song"
+    FIND_ARTISTS = "find-artists"
+
+
+class HelpTexts:
+    """Music App Form Help Texts"""
+
+    ALBUM = {
+        "cover_art": "Please choose a high quality cover art, please use your own materials.",
+        "release_date": "This date & time will be used to release this album world wide.",
+    }
+    TRACK = {
+        "title": "Enter track title",
+        "album": "Select track album",
+        "file": "Upload track file",
+        "genre": "Select track genre",
+        "artists": "Select track artists",
+    }
+
+
+class Labels:
+    """Music App Form Labels"""
+
+    ALBUM = {
+        "name": "Enter album name",
+        "cover_art": "Upload album cover art",
+        "release_date": "Select album release date",
+    }
+    TRACK = {
+        "title": "Enter track title",
+        "album": "Select track album",
+        "file": "Upload track file",
+        "genre": "Select track genre",
+        "artists": "Select track artists",
+    }
+
+
+class PlaceHolders:
+    """Music App Form PlaceHolders"""
+
+    ALBUM = {
+        "name": "Enter album name",
+        "cover_art": "Upload album cover art",
+        "release_date": "Select album release date",
+    }
+    TRACK = {
+        "title": "Enter track title",
+        "album": "Select track album",
+        "file": "Upload track file",
+        "genre": "Select track genre",
+        "artists": "Select track artists",
+    }
