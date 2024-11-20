@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, FormView, View
+from django.views.generic import FormView, View, TemplateView
 from spongify.constants import AuthErrors, AuthMessages, UrlPaths, Templates
 from utils.base_utils import get_model
 from django.shortcuts import redirect
@@ -9,10 +9,29 @@ from spongify.forms import ArtistLoginForm
 
 CreatorWaitlist = get_model(app_name="spongify", model_name="CreatorWaitlist")
 User = get_model(app_name="accounts", model_name="User")
+Album = get_model(app_name="music", model_name="Album")
+Track = get_model(app_name="music", model_name="Track")
+Artist = get_model(app_name="music", model_name="Artist")
 
 
 class HomeView(TemplateView):
     template_name = Templates.INDEX
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["albums"] = (
+            Album.objects.select_related("artist")
+            .prefetch_related("tracks")
+            .filter(tracks__gt=0)
+            .order_by("tracks")
+        )
+        context["tracks"] = (
+            Track.objects.select_related("album").prefetch_related("artists").all()
+        )
+        context["artists"] = Artist.objects.prefetch_related("albums").filter(
+            albums__gt=0
+        )
+        return context
 
 
 home_view = HomeView.as_view()

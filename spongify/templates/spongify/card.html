@@ -1,0 +1,70 @@
+{%load static%}
+<div class="p-5 hover:shadow-lg rounded hover:bg-neutral-800 transition duration-300 w-80 mx-auto">
+    <div class="relative">
+        {% if type == 'artist' %}
+        {% if instance.user.image %}
+        <img src="{{instance.user.image.url}}"
+            class="block h-72 object-cover bg-transparent shadow-lg {% if type == 'artist' %}rounded-full{% endif %}"
+            alt="cover" />
+        {% else %}
+        <img src="{% static 'img/profile.jpg' %}"
+            class="block h-72 object-cover bg-transparent shadow-lg {% if type == 'artist' %}rounded-full{% endif %}"
+            alt="cover" />
+        {% endif %}
+        {% elif type == 'album' %}
+        {% if instance.cover_art %}
+        <img src="{{instance.cover_art.url}}"
+            class="block h-72 object-cover bg-transparent shadow-lg {% if type == 'artist' %}rounded-full{% endif %}"
+            alt="cover" />
+        {% else %}
+        <img src="{% static 'img/profile.jpg' %}"
+            class="block h-72 object-cover bg-transparent shadow-lg {% if type == 'artist' %}rounded-full{% endif %}"
+            alt="cover" />
+        {% endif %}
+        {% elif type == 'track' %}
+        {% if instance.cover_art %}
+        <img src="{{instance.cover_art.url}}"
+            class="block h-72 object-cover bg-transparent shadow-lg {% if type == 'artist' %}rounded-full{% endif %}"
+            alt="cover" />
+        {% else %}
+        <img src="{% static 'img/profile.jpg' %}"
+            class="block h-72 object-cover bg-transparent shadow-lg {% if type == 'artist' %}rounded-full{% endif %}"
+            alt="cover" />
+        {% endif %}
+        {% else %}
+        <img src="{% static 'img/profile.jpg' %}"
+            class="block h-72 object-cover bg-transparent shadow-lg {% if type == 'artist' %}rounded-full{% endif %}"
+            alt="cover" />
+        {% endif %}
+        <div
+            class="absolute bottom-0 right-0 border-0 mb-3 mr-3 btn btn-circle shadow-md transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">
+            <i class="fa fa-play text-gray-100 text-xl"></i>
+        </div>
+    </div>
+    <div class="my-3">
+        {% if type == 'artist' %}
+        <h2 class="card-title capitalize">{{instance.stage_name}}</h2>
+        <p class="font-light italic truncate">
+            Available Albums: {{instance.albums.all.count}} Albums
+        </p>
+        {% elif type == 'album' %}
+        <h2 class="card-title capitalize">{{instance.name}}</h2>
+        <p class="font-light italic truncate">
+            {{instance.tracks.count}} Songs | {{instance.release_date|date:"jS F Y"}}
+        </p>
+        {% elif type == 'track' %}
+        <h2 class="card-title capitalize">{{instance.title}}</h2>
+        <p class="font-light italic truncate" title="
+         {% if instance.artists.all %}{% for artist in instance.artists.all %}{{artist.stage_name}} {%if not forloop.last %}, {% endif %}{% endfor %}{% endif %}
+        ">
+            Artists:
+            {% if instance.artists.all %}
+            {% for artist in instance.artists.all %}
+            {{artist.stage_name}} {%if not forloop.last %}, {% endif %}
+            {% endfor %}
+            {% endif %}
+
+        </p>
+        {% endif %}
+    </div>
+</div>

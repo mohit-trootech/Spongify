@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_tags %}
 {% if 'create-album' in request.path %}
 <h1 class="mt-10 text-5xl font-semibold relative text-white">Create a New Album</h1>
 <p class="mt-4 text-lg relative text-gray-300 italic text-sm">
@@ -6,11 +7,17 @@
     below. Give your album a captivating title, upload unique artwork, and provide a compelling description to engage
     your listeners.
 </p>
-{% endif %}
-{% if 'create-song' in request.path %}
+{% elif 'create-song' in request.path %}
 <h1 class="mt-10 text-5xl font-semibold relative text-white">Add Songs to Album</h1>
 <p class="mt-4 text-lg relative text-gray-300 italic text-sm">
     Effortlessly add tracks to your album. Select songs from your library or upload new ones. Ensure your tracks are
     high-quality and properly tagged for optimal listening experience.
+</p>
+{%else%}
+<h1 class="mt-10 text-5xl font-semibold relative text-white italic">Good {%period_of_day%}, <span
+        class="capitalize">{{request.user.username}}</span></h1>
+<p class="mt-4 text-lg relative text-gray-300 italic text-sm">
+    Welcome to Spongify, your all-in-one music creation and management platform. Here, you can effortlessly create
+    albums, add songs, and manage your entire music library. Start creating your musical journey today!
 </p>
 {% endif %}
