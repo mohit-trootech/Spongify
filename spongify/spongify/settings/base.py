@@ -98,6 +98,8 @@ TEMPLATES = [
 LOGIN_REQUIRED_IGNORE_PATHS = [
     "/accounts/login/$",
     "/accounts/register/$",
+    "/accounts/password-reset/$",
+    "/accounts/password-reset-done/$",
     "/admin/$",
     "/about/$",
 ]
