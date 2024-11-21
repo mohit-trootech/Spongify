@@ -13,17 +13,16 @@
     <!-- Full Page Size Drawer -->
     <div class="drawer-side z-[9999] w-full h-full">
         <label for="albums-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-        <ul class="menu bg-black text-base-content text-white min-h-full w-full p-5">
-            <!-- Close Button inside the Drawer -->
+        <div class="menu bg-black text-base-content text-white min-h-full w-full p-5">
             <div class="flex justify-between items-center mb-4">
                 <h1 class="text-3xl font-bold">Available Albums</h1>
                 <label for="albums-drawer"
-                    class="btn btn-sm btn-circle hover:btn-primary mr-2 transition ease-in-out duration-200 hover:rotate-180">✕
+                    class="btn btn-sm btn-circle bg-white text-black hover:bg-neutral-200 mr-2 transition ease-in-out duration-200 hover:rotate-180">✕
                 </label>
             </div>
-            <!-- Sidebar content -->
-            <li><a>Sidebar Item 1</a></li>
-            <li><a>Sidebar Item 2</a></li>
-        </ul>
+            <div>
+                {% include 'pages/albums.html' %}
+            </div>
+        </div>
     </div>
 </div>

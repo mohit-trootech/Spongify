@@ -1,0 +1,177 @@
+{% load static %}
+<script type="text/babel">
+    const audio = new Audio()
+    audio.controls = true;
+    let audioSrc = null;
+    let songs = null;
+    let current = null;
+    let mapIds = {};
+    let playerUpdate = null
+    const setMapIds = (data) => {
+        let index = 0;
+        data.data.forEach((elem) => {
+            mapIds[elem.id] = index;
+            index++;
+        })
+    }
+    const updatePlayerDetails = () => {
+        //document.getElementById("player-image").innerHTML = current.file;
+        document.getElementById("player-title").innerHTML = current.title;
+        document.getElementById("player-artist").innerHTML = current.genre;
+    }
+    const Player = () => {
+        const setAudioSrc = (data) => {
+            audioSrc = data;
+        }
+        const setSongs = (data) => {
+            songs = data;
+        }
+        const setCurrent = (data) => {
+            current = data;
+        }
+        playerUpdate = (data) => {
+            setMapIds(data)
+            setSongs(data.data);
+            setCurrent(songs[0])
+            setAudioSrc(current.file);
+            audio.src = audioSrc;
+            audio.play()
+            audio.onended = () => {
+                if (mapIds[current.id] + 1 < songs.length) {
+                    setCurrent(songs[mapIds[current.id] + 1]);
+                    setAudioSrc(current.file);
+                    audio.src = audioSrc;
+                    audio.play();
+                } else {
+                    console.log("No more songs");
+                }
+            }
+            document.getElementById("play-pause").innerHTML = '<i class="fa fa-pause"></i>';
+            updatePlayerDetails();
+        }
+        const nextSong = () => {
+            if (mapIds[current.id] + 1 < songs.length) {
+                setCurrent(songs[mapIds[current.id] + 1]);
+                setAudioSrc(current.file);
+                audio.src = audioSrc;
+                audio.play();
+                updatePlayerDetails();
+            } else {
+                console.log("No more songs");
+            }
+
+        }
+        const prevSong = () => {
+            if (mapIds[current.id] - 1 > 0) {
+                setCurrent(songs[mapIds[current.id] - 1]);
+                setAudioSrc(current.file);
+                audio.src = audioSrc;
+                audio.play();
+                updatePlayerDetails();
+            } else {
+                console.log("No more songs");
+            }
+        }
+        const playPause = (event) => {
+            /**Play Pause Song if Audio Src Available*/
+            if (audio.paused) {
+                audio.play()
+                event.target.tagName === 'I' ?
+                    event.target.classList.replace('fa-play', 'fa-pause')
+                    :
+                    event.target.children[0].classList.replace('fa-play', 'fa-pause')
+            } else {
+                audio.pause()
+                event.target.tagName === 'I' ?
+                    event.target.classList.replace('fa-pause', 'fa-play')
+                    :
+                    event.target.children[0].classList.replace('fa-pause', 'fa-play')
+            }
+        }
+
+        return (
+            //Music Player
+            <>
+                <footer className="flex items-center justify-between border-t border-zinc-700 bg-black px-6 py-4">
+                    <div className="flex items-center gap-3">
+                        <img className="w-14 h-14" src="{% static 'img/empty.png' %}" width="{56}"
+                            height="{56}" id="player-image" />
+                        <div className="flex flex-col">
+                            <span className="font-normal" id="player-title">Play Something</span>
+                            <span className="text-xs text-zinc-400" id="player-artist">---</span>
+                        </div>
+                    </div>
+                    <div id="test"></div>
+                    <div className="flex flex-col items-center gap-2">
+                        <div className="flex items-center gap-6">
+                            <button className="text-zinc-400">
+                                <i className="fa fa-shuffle"></i>
+                            </button>
+                            <button className="text-zinc-400" onClick={prevSong}>
+                                <i className="fa fa-backward-step"></i>
+                            </button>
+                            <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white pl-1 text-black" onClick={playPause} id="play-pause">
+                                <i className="fa fa-play"></i>
+                            </button>
+                            <button className="text-zinc-400" onClick={nextSong}>
+                                <i className="fa fa-forward-step"></i>
+                            </button>
+                            <button className="text-zinc-400">
+                                <i className="fa fa-repeat"></i>
+                            </button>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="text-xs text-zinc-400">2:43</span>
+                            <div className="h-1 w-96 rounded-full bg-zinc-600">
+                                <div className="h-1 w-40 rounded-full bg-zinc-200"></div>
+                            </div>
+                            <span className="text-xs text-zinc-400">5:00</span>
+                        </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-2">
+                            <i className="fa fa-volume-high"></i>
+                            <div className="h-1 w-24 rounded-full bg-zinc-600">
+                                <div className="h-1 w-10 rounded-full bg-zinc-200"></div>
+                            </div>
+                        </div>
+                        <button className="text-zinc-400">
+                            <i className="fa fa-expand"></i>
+                        </button>
+                    </div>
+                </footer>
+            </>
+        );
+    };
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<Player />);
+
+    /**Update Music Player*/
+    const artistPlayer = async (elem) => {
+        const id = elem.id.split("-")[2];
+        if (!isNaN(Number(id))) {
+            getRequest(`/creator/artist-tracks-response/${id}`, playerUpdate)
+        }
+    };
+</script>
+<!-- <media-controller audio
+    className="flex flex-col"
+>
+    <audio
+        slot="media"
+        src="{% static 'cradles.mp3' %}"
+    ></audio>
+    <media-control-bar>
+        <media-seek-backward-button></media-seek-backward-button>
+        <media-play-button></media-play-button>
+        <media-seek-forward-button></media-seek-forward-button>
+        <media-time-display></media-time-display>
+        <media-time-range ></media-time-range>
+
+        <media-fullscreen-button></media-fullscreen-button>
+
+        <media-duration-display></media-duration-display>
+        <media-mute-button></media-mute-button>
+        <media-volume-range></media-volume-range>
+    </media-control-bar>
+</media-controller> -->

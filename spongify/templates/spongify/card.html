@@ -22,8 +22,8 @@
             alt="cover" />
         {% endif %}
         {% elif type == 'track' %}
-        {% if instance.cover_art %}
-        <img src="{{instance.cover_art.url}}"
+        {% if instance.cover %}
+        <img src="{{instance.cover.url}}"
             class="block h-72 object-cover bg-transparent shadow-lg {% if type == 'artist' %}rounded-full{% endif %}"
             alt="cover" />
         {% else %}
@@ -36,10 +36,22 @@
             class="block h-72 object-cover bg-transparent shadow-lg {% if type == 'artist' %}rounded-full{% endif %}"
             alt="cover" />
         {% endif %}
-        <div
+        {% if type == 'artist' %}
+        <button onclick="artistPlayer(this)" id="play-artist-{{instance.id}}"
             class="absolute bottom-0 right-0 border-0 mb-3 mr-3 btn btn-circle shadow-md transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">
             <i class="fa fa-play text-gray-100 text-xl"></i>
-        </div>
+        </button>
+        {% elif type == 'album' %}
+        <button onclick="artistPlayer(this)"
+            class="absolute bottom-0 right-0 border-0 mb-3 mr-3 btn btn-circle shadow-md transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">
+            <i class="fa fa-play text-gray-100 text-xl"></i>
+        </button>
+        {% elif type == 'track' %}
+        <button onclick="artistPlayer(this)"
+            class="absolute bottom-0 right-0 border-0 mb-3 mr-3 btn btn-circle shadow-md transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">
+            <i class="fa fa-play text-gray-100 text-xl"></i>
+        </button>
+        {% endif %}
     </div>
     <div class="my-3">
         {% if type == 'artist' %}

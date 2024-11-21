@@ -42,6 +42,11 @@
       <i class="fa fa-expand"></i>
       View Albums
     </a>
+    {% else %}
+    <a href="{% url 'music:create-join' %}" class="flex justify-start gap-3 text-sm font-semibold btn">
+      <i class="fa fa-expand"></i>
+      Join as Creator!
+    </a>
     {% endif %}
   </nav>
   <div class="p-4 bg-zinc-900/80 text-zinc-100 space-y-5 rounded-md">

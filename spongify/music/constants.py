@@ -83,6 +83,7 @@ class Reverse:
     CREATE_SONG = "create-song"
     LIST_SONG = "list-song"
     FIND_ARTISTS = "find-artists"
+    API_ALBUM = "album-response"
 
 
 class HelpTexts:

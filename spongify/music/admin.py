@@ -8,6 +8,12 @@ from django.utils.translation import gettext_lazy as _
 class ArtistAdmin(admin.ModelAdmin):
     list_display = ("stage_name", "user")
     search_fields = ("stage_name", "user__username")
+    readonly_fields = ("user",)
+    fieldsets = (
+        (_("Artist Details"), {"fields": ("stage_name", "user", "following")}),
+    )
+    readonly_fields = ("user",)
+    filter_horizontal = ("following",)
 
 
 @admin.register(Album)

@@ -35,6 +35,7 @@ class Artist(Model):
     user = OneToOneField(
         "accounts.User", on_delete=CASCADE, related_name=VerboseNames.ARTIST_O2O_USER
     )
+    following = ManyToManyField("accounts.User", related_name="followers")
 
     def __str__(self):
         return self.stage_name
@@ -42,6 +43,22 @@ class Artist(Model):
     class Meta:
         verbose_name = VerboseNames.ARTIST
         verbose_name_plural = VerboseNames.ARTISTS
+
+    @property
+    def followers_count(self):
+        return self.followers.count()
+
+    @property
+    def following_count(self):
+        return self.following.count()
+
+    @property
+    def albums_count(self):
+        return self.albums.count()
+
+    @property
+    def tracks_count(self):
+        return self.tracks.count()
 
 
 class Album(Model):
@@ -59,6 +76,17 @@ class Album(Model):
         return VerboseNames.ALBUM_STR.format(
             name=self.name, artist=self.artist.stage_name
         )
+
+    @property
+    def tracks_count(self):
+        return self.tracks.count()
+
+    @property
+    def total_duration(self):
+        total_duration = 0
+        for track in self.tracks.all():
+            total_duration += track.duration
+        return total_duration
 
 
 class Track(TitleSlugDescriptionModel, ActivatorModel, TimeStampedModel):
@@ -82,3 +110,10 @@ class Track(TitleSlugDescriptionModel, ActivatorModel, TimeStampedModel):
     class Meta:
         verbose_name = VerboseNames.TRACK
         verbose_name_plural = VerboseNames.TRACKS
+
+    @property
+    def duration(self):
+        from mutagen.mp3 import MP3
+
+        file = MP3(self.file)
+        return file.info.length
