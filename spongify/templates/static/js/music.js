@@ -1,5 +1,4 @@
 /**Music App JavaScripts */
-
 const albumChange = (elem) => {
   const url = list_albums_urls + "?q=" + elem.value;
   albums_list(url);

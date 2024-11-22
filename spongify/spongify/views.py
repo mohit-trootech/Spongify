@@ -20,17 +20,12 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["albums"] = (
-            Album.objects.select_related("artist")
-            .prefetch_related("tracks")
-            .filter(tracks__gt=0)
-            .order_by("tracks")
+            Album.objects.select_related("artist").prefetch_related("tracks").all()
         )
         context["tracks"] = (
             Track.objects.select_related("album").prefetch_related("artists").all()
         )
-        context["artists"] = Artist.objects.prefetch_related("albums").filter(
-            albums__gt=0
-        )
+        context["artists"] = Artist.objects.prefetch_related("albums").all()
         return context
 
 

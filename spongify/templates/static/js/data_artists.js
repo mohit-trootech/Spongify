@@ -1,6 +1,4 @@
 /**Load Dynamic Ajax Data to Datatables */
-const artistTableBody = document.getElementById("artist-table-body");
-let timer = null;
 
 const handleAristSearch = (elem) => {
   // Wait for 2s Before Request Again
@@ -15,6 +13,7 @@ const fetchArtists = async (url) => {
 };
 
 const handleArtistsResponse = (response) => {
+  artistTableBody = document.getElementById("artist-table-body");
   artistTableBody.innerHTML = "";
   response.data.forEach((artist) => {
     const tr = `<tr>

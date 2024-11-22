@@ -7,6 +7,7 @@ const getRequest = async (url, callback) => {
 
 const postRequest = async (url, data, callback) => {
   /**Common Axios Post Request */
+  console.log(data);
   await axiosRequest("POST", url, data, callback);
 };
 
@@ -18,7 +19,7 @@ const axiosRequest = async (method, url, data, callback) => {
       data: data,
     });
     if (callback) {
-      callback(response.data);
+      response.status === 200 && callback(response.data);
     }
     return response;
   } catch (error) {

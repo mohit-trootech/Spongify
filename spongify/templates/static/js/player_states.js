@@ -1,16 +1,10 @@
 /**Load Dynamic Ajax Data to Datatables */
-let currentPlaylistTableBody = null;
-const audio = new Audio();
-audio.controls = true;
-let audioSrc = null;
-let songs = null;
-let current = null;
-let mapIds = {};
-let playerUpdate = null;
+
 const handleCurrentPlaylist = () => {
   currentPlaylistTableBody = document.getElementById(
     "current-playlist-table-body"
   );
+  currentPlaylistTableBody.innerHTML = "";
   for (let i = 0; i < songs.length; i++) {
     let track = songs[i];
     const tr = `<tr>
@@ -55,8 +49,13 @@ const handleCurrentPlaylist = () => {
   }
 };
 const setMapIds = (data) => {
-  for (let i = 0; i < data.length; i++) {
-    mapIds[data.id] = i;
+  if (data.length) {
+    for (let i = 0; i < data.length; i++) {
+      mapIds[data[i].id] = i;
+    }
+  }
+  {
+    mapIds[data.id] = 0;
   }
 };
 const updatePlayerDetails = () => {
@@ -79,13 +78,13 @@ const setCurrent = (data) => {
   current = data;
 };
 playerUpdate = (data) => {
-  try {
-    setMapIds(data);
+  if (data.data) {
     setSongs(data.data);
+    setMapIds(songs);
     setCurrent(songs[0]);
-  } catch (error) {
-    setMapIds(data);
+  } else {
     setSongs(data);
+    setMapIds(songs);
     setCurrent(songs);
   }
   setAudioSrc(current.file);

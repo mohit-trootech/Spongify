@@ -9,14 +9,21 @@
   <div class="flex flex-1 h-[calc(100vh-97px)]">
     {% include 'accounts/profile_sidebar.html' %}
     <main class="flex-1 bg-zinc-900">
-      <!-- Profile Section -->
-      {% include 'accounts/sections/profile.html' %}
-      <!-- Favorite Tracks Section -->
-      {% include 'accounts/sections/favorites.html' %}
-      <!-- Playlist Section -->
-      {% include 'accounts/sections/playlists.html' %}
-      <!-- Settings Section -->
-      {% include 'accounts/sections/settings.html' %}
+      <div>
+        <!-- Profile Section -->
+        {% include 'accounts/sections/profile.html' %}
+        <!-- Favorite Tracks Section -->
+        {% include 'accounts/sections/favorites.html' %}
+        <!-- Favorite Albums Section -->
+        {% include 'accounts/sections/albums.html' %}
+        <!-- Followed Artists Section -->
+        {% include 'accounts/sections/artists.html' %}
+        <!-- Playlists Section -->
+        {% include 'accounts/sections/playlists.html' %}
+        <!-- Settings Section -->
+        {% include 'accounts/sections/settings.html' %}
+      </div>
+      {%include 'spongify/player.html' %}
     </main>
   </div>
 </div>

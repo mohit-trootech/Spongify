@@ -29,18 +29,16 @@
 <script src="{% static 'js/tailwind.js'  %}"></script>
 <script src="{% static 'js/axiosRequests.js'  %}"></script>
 <script src="{% static 'js/datatables.js'  %}"></script>
-<script src="{% static 'js/reactPlayer.js' %}"></script>
 <script src="{% static 'js/player_states.js' %}"></script>
-<script>
-  //var DataTable = require('datatables.net');
-</script>
+<script src="{% static 'js/library.js' %}"></script>
 {% block js %}
 {% endblock %}
-{%include "spongify/toast.html" %}
 
 <body>
+  {%include "spongify/toast.html" %}
   <!-- Spongify Base -->
   {% block content %} {% endblock %}
+
 </body>
 
 </html>

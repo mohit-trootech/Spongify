@@ -1,6 +1,4 @@
 /**Load Dynamic Ajax Data to Datatables */
-const albumTableBody = document.getElementById("album-table-body");
-
 const handleAlbumsSearch = (elem) => {
   // Wait for 2s Before Request Again
   clearTimeout(timer);
@@ -14,6 +12,8 @@ const fetchAlbums = async (url) => {
 };
 
 const handleAlbumsResponse = (response) => {
+  albumTableBody = document.getElementById("album-table-body");
+
   albumTableBody.innerHTML = "";
   response.data.forEach((album) => {
     const tr = `<tr>

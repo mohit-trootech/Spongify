@@ -2,48 +2,59 @@
 <section class="p-6" id="settings">
     <div class="flex flex-row items-center justify-between">
         <h2 class="text-2xl font-semibold">Settings</h2>
-        <span class="text-sm text-zinc-400">Mostrar tudo</span>
     </div>
-    <div class="mt-4 -ml-3 grid grid-cols-5 gap-2">
-        <div class="flex flex-col p-3 cursor-pointer gap-2 rounded-md hover:bg-white/5">
-            <img class="w-48 h-48 rounded-md" src="https://i.scdn.co/image/ab67616d00001e023562c44947cd0b7696f95178"
-                class="w-full" width="{120}" height="{120}" alt="Foto do álbum" />
-            <div>
-                <span class="font-semibold">Stone Preacher</span>
-                <span class="text-sm text-zinc-400">Understone</span>
+    <div class="mt-4 grid grid-cols-1 gap-4">
+        <!-- Email Preference Settings Update Setting Name at start & Dropdown at end -->
+        <div class="flex flex-col gap-4">
+            <div class="flex justify-between items-center">
+                <label for="email_preference" class="text-lg font-medium">Email Preferences</label>
+                <select id="email_preference" class="select select-bordered w-full max-w-xs">
+                    <option value="all">All Updates</option>
+                    <option value="important">Important Updates Only</option>
+                    <option value="none">No Emails</option>
+                </select>
+            </div>
+            <div class="flex justify-between items-center">
+                <label for="notification_preference" class="text-lg font-medium">Notification Preferences</label>
+                <select id="notification_preference" class="select select-bordered w-full max-w-xs">
+                    <option value="all">All Notifications</option>
+                    <option value="important">Important Notifications Only</option>
+                    <option value="none">No Notifications</option>
+                </select>
+            </div>
+            <div class="flex justify-between items-center">
+                <label for="theme_preference" class="text-lg font-medium">Theme Preferences</label>
+                <select id="theme_preference" class="select select-bordered w-full max-w-xs">
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                    <option value="system">System Default</option>
+                </select>
+            </div>
+            <div class="flex justify-between items-center">
+                <label for="language_preference" class="text-lg font-medium">Language Preferences</label>
+                <select id="language_preference" class="select select-bordered w-full max-w-xs">
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                </select>
+            </div>
+            <div class="flex justify-between items-center">
+                <label for="language_preference" class="text-lg font-medium">Language Preferences</label>
+                <select id="language_preference" class="select select-bordered w-full max-w-xs">
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                </select>
+            </div>
+            <div class="flex justify-between items-center">
+                <label for="language_preference" class="text-lg font-medium">Language Preferences</label>
+                <select id="language_preference" class="select select-bordered w-full max-w-xs">
+                    <option value="en">English</option>
+                    <option value="es">Spanish</option>
+                    <option value="fr">French</option>
+                </select>
             </div>
         </div>
-        <div class="flex flex-col p-3 cursor-pointer gap-2 rounded-md hover:bg-white/5">
-            <img class="w-48 h-48 rounded-md" src="https://i.scdn.co/image/ab67616d00001e023562c44947cd0b7696f95178"
-                class="w-full" width="{120}" height="{120}" alt="Foto do álbum" />
-            <div>
-                <span class="font-semibold">Stone Preacher</span>
-                <span class="text-sm text-zinc-400">Understone</span>
-            </div>
-        </div>
-        <div class="flex flex-col p-3 cursor-pointer gap-2 rounded-md hover:bg-white/5">
-            <img class="w-48 h-48 rounded-md" src="https://i.scdn.co/image/ab67616d00001e023562c44947cd0b7696f95178"
-                class="w-full" width="{120}" height="{120}" alt="Foto do álbum" />
-            <div>
-                <span class="font-semibold">Stone Preacher</span>
-                <span class="text-sm text-zinc-400">Understone</span>
-            </div>
-        </div>
-        <div class="flex flex-col p-3 cursor-pointer gap-2 rounded-md hover:bg-white/5">
-            <img class="w-48 h-48 rounded-md" src="https://i.scdn.co/image/ab67616d00001e023562c44947cd0b7696f95178"
-                class="w-full" width="{120}" height="{120}" alt="Foto do álbum" />
-            <div>
-                <span class="font-semibold">Stone Preacher</span>
-                <span class="text-sm text-zinc-400">Understone</span>
-            </div>
-        </div>
-        <div class="flex flex-col p-3 cursor-pointer gap-2 rounded-md hover:bg-white/5">
-            <img class="w-48 h-48 rounded-md" src="https://i.scdn.co/image/ab67616d00001e023562c44947cd0b7696f95178"
-                class="w-full" width="{120}" height="{120}" alt="Foto do álbum" />
-            <div>
-                <span class="font-semibold">Stone Preacher</span>
-                <span class="text-sm text-zinc-400">Understone</span>
-            </div>
-        </div>
+
     </div>
 </section>
