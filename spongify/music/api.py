@@ -161,7 +161,7 @@ artist_tracks_response = ArtistTracksResponse.as_view()
 
 class AlbumTracksResponse(View):
     def get(self, request, *args, **kwargs):
-        album_id = request.GET.get("album_id")
+        album_id = kwargs.get("id")
         if not album_id:
             return JsonResponse({"error": "album_id is required"}, status=400)
         try:
@@ -187,3 +187,30 @@ class AlbumTracksResponse(View):
 
 
 album_tracks_response = AlbumTracksResponse.as_view()
+
+
+class TrackApiResponse(View):
+    def get(self, request, *args, **kwargs):
+        track_id = kwargs.get("id")
+        if not track_id:
+            return JsonResponse({"error": "track_id is required"}, status=400)
+        try:
+            track = Track.objects.get(pk=track_id)
+        except Track.DoesNotExist:
+            return JsonResponse({"error": "Track not found"}, status=404)
+        data = {
+            "id": track.id,
+            "title": track.title,
+            "album": track.album.name,
+            "genre": track.genre,
+            "file": track.file.url,
+            "duration": track.duration,
+            "artists": [
+                {"id": artist.id, "name": artist.stage_name}
+                for artist in track.artists.all()
+            ],
+        }
+        return JsonResponse(data, safe=False)
+
+
+track_api_response = TrackApiResponse.as_view()

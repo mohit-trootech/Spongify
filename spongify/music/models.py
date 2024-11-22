@@ -8,6 +8,7 @@ from django.db.models import (
     FileField,
     ManyToManyField,
     DateTimeField,
+    IntegerField,
 )
 from django_extensions.db.models import (
     TitleSlugDescriptionModel,
@@ -117,3 +118,27 @@ class Track(TitleSlugDescriptionModel, ActivatorModel, TimeStampedModel):
 
         file = MP3(self.file)
         return file.info.length
+
+
+class AlbumPopularity(Model):
+    artist = OneToOneField("music.Artist", on_delete=CASCADE, related_name="popularity")
+    score = IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.artist.stage_name} Popularity"
+
+    class Meta:
+        verbose_name = "Popularity"
+        verbose_name_plural = "Popularities"
+
+
+class TrackPopularity(Model):
+    track = OneToOneField("music.Track", on_delete=CASCADE, related_name="popularity")
+    score = IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.track.title} Popularity"
+
+    class Meta:
+        verbose_name = "Popularity"
+        verbose_name_plural = "Popularities"

@@ -1,1 +1,49 @@
-<div id="root" class="sticky bottom-0"></div>
+{% load static %}
+<div class="sticky bottom-0">
+    <footer class="flex items-center justify-between border-t gap-2 border-zinc-700 bg-black px-6 py-4">
+        <div class="flex items-center gap-3">
+            <img class="w-14 h-14 player-image" src="{% static 'img/empty.png' %}" width="{56}" height="{56}" />
+            <div class="flex flex-col">
+                <span class="font-normal player-title">Play Something</span>
+                <span class="text-xs text-zinc-400 player-artist">---</span>
+            </div>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+            <div class="flex items-center gap-6">
+                <button class="text-zinc-400">
+                    <i class="fa fa-shuffle"></i>
+                </button>
+                <button class="text-zinc-400" onclick="prevSong()">
+                    <i class="fa fa-backward-step"></i>
+                </button>
+                <button
+                    class="text-black p-8 btn btn-circle bg-white hover:bg-white shadow-lg self-center content-center"
+                    onclick="playPause(this)" id="play-pause">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="text-zinc-400" onclick="nextSong()">
+                    <i class="fa fa-forward-step"></i>
+                </button>
+                <button class="text-zinc-400" onclick="repeatSong(this)">
+                    <i class="fa fa-repeat"></i>
+                </button>
+            </div>
+            <div class="flex justify-between items-center gap-2 text-sm">
+                <p class="current-progress">00:00</p>
+                <progress class="player-progress"></progress>
+                <p class="song-progress">00:00</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2">
+                <i class="fa fa-volume-high"></i>
+                <div class="h-1 w-24 rounded-full bg-zinc-600">
+                    <div class="h-1 w-10 rounded-full bg-zinc-200"></div>
+                </div>
+            </div>
+            <button class="text-zinc-400">
+                {% include 'drawers/player_drawer.html' %}
+            </button>
+        </div>
+    </footer>
+</div>

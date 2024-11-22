@@ -48,7 +48,7 @@ const handleArtistsResponse = (response) => {
                             </p>
                         </td>
                         <td class="p-4 border-b border-slate-200">
-                            <button onclick="artistPlayer(this)"  class="btn btn-sm btn-success btn-circle" id="play-artist-${
+                            <button onclick="artistPlayer(this)" class="btn btn-sm btn-success btn-circle" id="play-artist-${
                               artist.id
                             }">
                                 <i class="fa fa-play"></i>

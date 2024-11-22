@@ -52,7 +52,7 @@ const handleAlbumsResponse = (response) => {
                               </p>
                           </td>
                           <td class="p-4 border-b border-slate-200">
-                              <button class="btn btn-sm btn-circle btn-success" id="play-album-${
+                              <button onclick="albumPlayer(this)" class="btn btn-sm btn-circle btn-success" id="play-album-${
                                 album.id
                               }">
                                   <i class="fa fa-play"></i>

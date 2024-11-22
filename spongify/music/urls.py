@@ -7,6 +7,7 @@ from music.api import (
     track_response,
     artist_tracks_response,
     album_tracks_response,
+    track_api_response,
 )
 
 
@@ -19,7 +20,8 @@ urlpatterns = [
     path("create-song/", create_song, name=Reverse.CREATE_SONG),
     path("album-response/", album_response),
     path("artist-response/", artist_response),
-    path("track-response/", track_response),
+    path("tracks-response/", track_response),
     path("artist-tracks-response/<int:id>", artist_tracks_response),
     path("album-tracks-response/<int:id>", album_tracks_response),
+    path("tracks-api-response/<int:id>", track_api_response),
 ]
