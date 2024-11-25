@@ -1,0 +1,82 @@
+{%extends 'base.html'%}
+{%load static%}
+{%block title%}Profile{%endblock%}
+{%block styling%}
+<link rel="stylesheet" href="{% static 'css/accounts.css' %}" />
+{%endblock%}
+{%block content%}
+<div class="flex bg-zinc-900 text-zinc-50 flex-col">
+  <div class="flex flex-1 h-[calc(100vh-97px)]">
+    {% include 'accounts/profile_sidebar.html' %}
+    <main class="flex-1 bg-zinc-900">
+      <div>
+        <!-- Profile Section -->
+        {% include 'accounts/sections/profile.html' %}
+        <!-- Favorite Tracks Section -->
+        {% include 'accounts/sections/favorites.html' %}
+        <!-- Favorite Albums Section -->
+        {% include 'accounts/sections/albums.html' %}
+        <!-- Followed Artists Section -->
+        {% include 'accounts/sections/artists.html' %}
+        <!-- Playlists Section -->
+        {% include 'accounts/sections/playlists.html' %}
+        <!-- Settings Section -->
+        {% include 'accounts/sections/settings.html' %}
+      </div>
+      {%include 'spongify/player.html' %}
+    </main>
+  </div>
+</div>
+{% include 'accounts/dialog_profile_update.html' %}
+{%endblock %}
+{% block js %}
+<script src="{% static 'js/scrollspy.js'  %}"></script>
+{% endblock %}
+
+<div class="bg-gray-900 text-white">
+  <div class="max-w-4xl mx-auto px-6">
+
+
+    <!-- Favorite Playlists -->
+    <div class="mt-8">
+      <h2 class="text-2xl font-semibold mb-4">Favorite Playlists</h2>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+        <!-- Playlist 1 -->
+        <div class="bg-gray-800 rounded-lg overflow-hidden">
+          <img src="https://via.placeholder.com/300x200" alt="Playlist 1" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h3 class="text-xl font-semibold">Chill Vibes</h3>
+            <p class="text-sm text-gray-400">Updated 2 days ago</p>
+          </div>
+        </div>
+
+        <!-- Playlist 2 -->
+        <div class="bg-gray-800 rounded-lg overflow-hidden">
+          <img src="https://via.placeholder.com/300x200" alt="Playlist 2" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h3 class="text-xl font-semibold">Indie Hits</h3>
+            <p class="text-sm text-gray-400">Updated 1 week ago</p>
+          </div>
+        </div>
+
+        <!-- Playlist 3 -->
+        <div class="bg-gray-800 rounded-lg overflow-hidden">
+          <img src="https://via.placeholder.com/300x200" alt="Playlist 3" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h3 class="text-xl font-semibold">Party Playlist</h3>
+            <p class="text-sm text-gray-400">Updated 1 month ago</p>
+          </div>
+        </div>
+
+        <!-- Playlist 4 -->
+        <div class="bg-gray-800 rounded-lg overflow-hidden">
+          <img src="https://via.placeholder.com/300x200" alt="Playlist 4" class="w-full h-40 object-cover">
+          <div class="p-4">
+            <h3 class="text-xl font-semibold">Morning Coffee</h3>
+            <p class="text-sm text-gray-400">Updated 5 days ago</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

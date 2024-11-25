@@ -1,0 +1,91 @@
+{% load static %}
+<div class="flex flex-row items-center justify-between">
+  <div class="flex items-center gap-x-2">
+    <button class="btn btn-circle avatar">
+      <i class="fa fa-arrow-left"></i>
+    </button>
+    <button class="btn btn-circle">
+      <i class="fa fa-arrow-right"></i>
+    </button>
+  </div>
+  <div>
+    <div class="flex items-center gap-x-2">
+      <button class="btn btn-circle avatar">
+        <i class="far fa-bell"></i>
+      </button>
+      <div class="dropdown dropdown-end items-center">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+          <div class="rounded-full">
+            {% if request.user.image %}
+            <img alt="Navbar" src="{{request.user.image.url}}" />
+            {% else %}
+            <img alt="Navbar" src="{% static 'img/profile.jpg' %}" />
+            {%endif%}
+          </div>
+        </div>
+        <div tabindex="0"
+          class="dropdown-content card card-compact rounded-xl bg-primary p-0 mt-3 text-primary-content z-[1] w-auto shadow">
+          <div class="flex flex-col">
+            <div class="bg-white border border-white shadow-lg rounded-xl p-4">
+              <div class="flex-none sm:flex">
+                <div class=" relative h-32 w-32   sm:mb-0 mb-3">
+                  {%if request.user.image%}
+                  <img src="{{request.user.image.url}}" alt="aji" class=" w-32 h-32 object-cover rounded-2xl">
+                  {% else %}
+                  <img src="{%static 'img/profile.jpg'%}" alt="aji" class=" w-32 h-32 object-cover rounded-2xl">
+                  {%endif%}
+                </div>
+                <div class="flex-auto sm:ml-5 justify-evenly">
+                  <div class="flex items-center justify-between sm:mt-2">
+                    <div class="flex items-center">
+                      <div class="flex flex-col">
+                        <div class="w-full flex-none text-lg text-gray-800 font-bold leading-none capitalize">
+                          {% if request.user.get_full_name %}
+                          {{request.user.get_full_name}}
+                          {%else%}
+                          {{request.user.username}}
+                          {% endif %}
+                        </div>
+                        <div class="flex text-gray-500 my-1 capitalize mb-2">
+                          {% if request.user.gender %}
+                          <span class="mr-1.5 self-center">
+                            {{request.user.gender}}
+                          </span>
+                          <span class="mr-1.5 border-r border-gray-200"> </span>
+                          {% endif %}
+                          {% if request.user.age %}
+                          <span class="mr-1.5 self-center">
+                            {{request.user.age}}
+                          </span>
+                          <span class="mr-1.5 border-r border-gray-200"> </span>
+                          {% endif %}
+                          <span class="lowercase flex items-center gap-2">
+                            {{request.user.email}}
+                            {% if request.user.account_verified %}
+                            <span>
+                              <img class="mask mask-decagon w-10 h-10" src="{%static 'img/verified.png' %}" />
+                            </span>
+                            {% else %}
+                            <span>
+                              <img class="mask mask-decagon w-10 h-10" src="{%static 'img/unverified.png' %}" />
+                            </span>
+                            {% endif %}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex  justify-start gap-x-3 items-center pt-2  text-sm text-gray-500">
+                    <a role="button" href="{% url 'accounts:profile' request.user.username %}"
+                      class="btn btn-success text-gray-100">Profile</a>
+                    <a role="button" href="" class="btn btn-primary text-gray-100">Settings</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

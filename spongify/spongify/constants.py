@@ -6,13 +6,13 @@ class VerboseNames:
     """Spongify App Verbose Names"""
 
     # Email Template Model
-    EMAIL_TEMPLATE = "Email Template"
-    EMAIL_TEMPLATES = "Email Templates"
-    SUBJECT = "Subject"
-    BODY = "Body"
-    TEMPLATE = "Email Template"
-    CHOICE = "Choice"
-    IS_HTML = "Is HTML"
+    EMAIL_TEMPLATE = _("Email Template")
+    EMAIL_TEMPLATES = _("Email Templates")
+    SUBJECT = _("Subject")
+    BODY = _("Body")
+    TEMPLATE = _("Email Template")
+    CHOICE = _("Choice")
+    IS_HTML = _("Is HTML")
 
 
 class EmailTemplatesChoice:
@@ -40,3 +40,44 @@ class EmailTemplatesChoice:
         (ARTIST_REGISTRATION_APPROVAL, _("Artist Registration Approval")),
         (ARTIST_REGISTRATION_REJECTION, _("Artist Registration Rejection")),
     )
+
+
+class Templates:
+    """Spongify Template Names"""
+
+    INDEX = "index.html"
+    CREATOR_TEMPLATE = "creator/creator.html"
+
+
+class Reverse:
+    """Urls Reverse"""
+
+    HOME = "home"
+    CREATOR = "creator"
+    CREATOR_JOIN = "creator-join"
+
+
+class AuthErrors:
+    """Music Authentication Errors"""
+
+    NOT_REGISTERED = _("User is not authenticated, Login to continue.")
+    ARTIST_NOT_FOUND = _("Artist Not Found!")
+    USER_NOT_FOUND = _("User Not Found!")
+
+
+class AuthMessages:
+    """Music Authentication Messages"""
+
+    CREATOR_REGISTRATION_JOINED = (
+        "You successfully joined the waitlist, Check email for updates."
+    )
+    ALREADY_JOINED = _("You have already joined the waitlist. Wait for approval.")
+    VERIFIED_ARTIST = _("You are a verified artist, Welcome {user}!")
+
+
+class UrlPaths:
+    """Music Url Paths"""
+
+    HOME = "/"
+    CREATOR = "/creator/"
+    CREATOR_JOIN = "/creator/join/"

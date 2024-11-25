@@ -1,0 +1,45 @@
+{% load static %}
+<aside class="flex flex-col sticky top-0 h-screen w-72 bg-zinc-950 text-zinc-100 p-2 gap-2">
+  <a href="{% url 'home' %}" class="flex items-start ps-2.5 my-2">
+    <img src="{% static 'img/logo.png' %}" alt="Spongify Logo" class="h-10 w-10 me-2" />
+    <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Spongify</span>
+  </a>
+  <nav class="p-4 h-full bg-zinc-900/80 space-y-5 rounded-md">
+    <a href="#profile" class="flex justify-start gap-3 text-sm font-semibold btn btn-primary">
+      <i class="far fa-user"></i>
+      Profile
+    </a>
+    <a href="#favorites" class="flex justify-start gap-3 text-sm font-semibold btn">
+      <i class="far fa-bookmark"></i>
+      Favorite
+    </a>
+    <a href="#playlists" class="flex justify-start gap-3 text-sm font-semibold btn">
+      <i class="fa fa-list"></i>
+      Playlists
+    </a>
+    <a href="#settings" class="flex justify-start gap-3 text-sm font-semibold btn">
+      <i class="fas fa-gear"></i>
+      Settings
+    </a>
+  </nav>
+  <div class="p-4 bg-zinc-900/80 text-zinc-100 space-y-5 rounded-md">
+    <a role="button" href="{% url 'accounts:logout' %}" class="flex flex-row items-center justify-between">
+      <div class="flex flex-row items-center gap-2 italic capitalize font-semibold">
+        <svg class="w-4 h-4 text-current fill-current" viewBox="0 0 24 24">
+          <path
+            d="M3 22a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1zM15.5 2.134A1 1 0 0 0 14 3v18a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V6.464a1 1 0 0 0-.5-.866l-6-3.464zM9 2a1 1 0 0 0-1 1v18a1 1 0 1 0 2 0V3a1 1 0 0 0-1-1z">
+          </path>
+        </svg>
+        {% if request.user.first_name %}
+        {{request.user.get_full_name}}
+        {%else%}
+        {{request.user.username}}
+        {%endif%}
+      </div>
+      <div class="flex flex-row items-center text-zinc-400 gap-4">
+        <button>
+          <i class="fa fa-right-from-bracket  "></i>
+        </button>
+      </div>
+    </a>
+</aside>

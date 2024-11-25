@@ -2,10 +2,23 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
 from accounts.constants import VerboseNames, Choices
+from django_extensions.db.models import TimeStampedModel
 from django_extensions.db.fields import CreationDateTimeField
+from django.utils.timezone import now, timedelta
+from random import randint
 
 
-class User(AbstractUser):
+def _generate_otp():
+    return randint(100000, 999999)
+
+
+def _upload_to(self, filename):
+    return f"user/{self.username}/{filename}"
+
+
+class User(AbstractUser, TimeStampedModel):
+    image = models.ImageField(upload_to=_upload_to, blank=True, null=True)
+
     email = models.EmailField(verbose_name=VerboseNames.EMAIL, unique=True)
     age = models.IntegerField(verbose_name=VerboseNames.AGE, blank=True, null=True)
     phone_number = PhoneNumberField(
@@ -23,17 +36,6 @@ class User(AbstractUser):
         blank=True,
         null=True,
     )
-    account_type = models.CharField(
-        default=Choices.CUSTOMER,
-        choices=Choices.ACCOUNT_TYPE_CHOICE,
-        verbose_name=VerboseNames.ACCOUNT_TYPE,
-        max_length=50,
-        blank=True,
-        null=True,
-    )
-    created = CreationDateTimeField()
-
-    modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.username
@@ -44,12 +46,12 @@ class User(AbstractUser):
 
 
 class Otp(models.Model):
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         "accounts.User",
         on_delete=models.CASCADE,
         related_name=VerboseNames.OTP_O2O_USER,
     )
-    otp = models.CharField(max_length=6)
+    otp = models.CharField(max_length=6, default=_generate_otp)
     created = CreationDateTimeField()
     expiry = models.DateTimeField()
 
@@ -59,3 +61,11 @@ class Otp(models.Model):
     class Meta:
         verbose_name = VerboseNames.OTP
         verbose_name_plural = VerboseNames.OTPS
+
+    def save(self, *args, **kwargs):
+        self.expiry = now() + timedelta(minutes=10)
+        super().save(*args, **kwargs)
+
+    @property
+    def is_expired(self):
+        return now() > self.expiry

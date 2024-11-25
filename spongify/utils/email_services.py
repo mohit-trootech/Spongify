@@ -5,6 +5,7 @@ from utils.base_utils import get_model
 from spongify.models import EmailTemplatesChoice
 
 EmailTemplate = get_model(app_name="spongify", model_name="EmailTemplate")
+Otp = get_model(app_name="accounts", model_name="Otp")
 
 
 class EmailService:
@@ -44,6 +45,15 @@ class EmailService:
         return "Email Sent Successfully"
 
     @staticmethod
+    def _handle_otp(user):
+        """Check Whether OTP Already There For User"""
+        try:
+            Otp.objects.get(user=user).delete()
+        except Otp.DoesNotExist:
+            pass
+        return Otp.objects.create(user=user)
+
+    @staticmethod
     def get_email_template(choice: str):
         """
         returns email template from template choice provided
@@ -54,19 +64,140 @@ class EmailService:
             Email templates choice
         """
         try:
-            return EmailTemplate.objects.get(choice=choice)
+            template = EmailTemplate.objects.get(choice=choice)
+            return template
         except EmailTemplate.DoesNotExist:
             return None
 
-    def send_registration_mail(self, user: str, email: str):
-        """Send Registeration Mail to User"""
+    def send_registration_mail(self, user):
+        """
+        Send Registration Mail to User
+
+        Parameters
+        ----------
+        user :
+            user's instance
+        """
         template = self.get_email_template(choice=EmailTemplatesChoice.REGISTRATION)
         if not template:
             return "Email Template Not Found"
         return self.send_email(
-            subject=template.subject.format(user=user),
-            body=template.body.format(user=user),
-            to_email=[email],
-            template=template.template.format(user=user),
+            subject=template.subject.format(user=user.username),
+            body=template.body.format(user=user.username),
+            to_email=[user.email],
+            template=template.template.format(user=user.username),
+            is_html=template.is_html,
+        )
+
+    def password_reset_mail_otp(self, user):
+        """
+        Send Password Reset Mail to User
+
+        Parameters
+        ----------
+        user :
+            user's instance
+        """
+        template = self.get_email_template(choice=EmailTemplatesChoice.RESET_PASSWORD)
+        otp = self._handle_otp(user=user)
+        expiry = otp.expiry.strftime("%B %d %Y, %H:%M %p %Z")
+        if not template:
+            return "Email Template Not Found"
+        return self.send_email(
+            subject=template.subject,
+            body=template.body.format(otp=otp.otp, expiry=expiry),
+            to_email=[user.email],
+            template=template.template.format(otp=otp.otp, expiry=expiry),
+            is_html=template.is_html,
+        )
+
+    def password_reset_mail_done(self, user):
+        """
+        Send Password Reset Confirm Mail to user
+
+        Parameters
+        ----------
+        user :
+            user's instance
+        """
+        template = self.get_email_template(
+            choice=EmailTemplatesChoice.RESET_PASSWORD_DONE
+        )
+        return self.send_email(
+            subject=template.subject,
+            body=template.body.format(username=user.username),
+            to_email=[user.email],
+            template=template.template,
+            is_html=template.is_html,
+        )
+
+    def artist_signup_mail(self, user):
+        """
+        Send Creator Signup Mail to User
+
+
+        Parameters
+        ----------
+        user :
+            user's instance
+        """
+        template = self.get_email_template(
+            choice=EmailTemplatesChoice.ARTIST_REGISTRATION_REQUEST
+        )
+        if not template:
+            return "Email Template Not Found"
+        return self.send_email(
+            subject=template.subject,
+            body=template.body.format(username=user.username),
+            to_email=[user.email],
+            template=template.template.format(username=user.username),
+            is_html=template.is_html,
+        )
+
+    def artist_signup_approval_mail(self, user):
+        """
+        Send Creator Signup Approval Mail to User
+
+
+        Parameters
+        ----------
+        user :
+            user's instance
+        """
+
+        template = self.get_email_template(
+            choice=EmailTemplatesChoice.ARTIST_REGISTRATION_APPROVAL
+        )
+        if not template:
+            return "Email Template Not Found"
+        return self.send_email(
+            subject=template.subject,
+            body=template.body.format(username=user.username),
+            to_email=[user.email],
+            template=template.template,
+            is_html=template.is_html,
+        )
+
+    def artist_signup_rejection_mail(self, user):
+        """
+
+        Send Creator Signup Rejection Mail to User
+
+
+        Parameters
+        ----------
+        user :
+            user's instance
+        """
+        template = self.get_email_template(
+            choice=EmailTemplatesChoice.ARTIST_REGISTRATION_REJECTION
+        )
+        if not template:
+            return "Email Template Not Found"
+        return self.send_email(
+            subject=template.subject,
+            body=template.body,
+            to_email=[user.email],
+            template=template.template,
             is_html=template.is_html,
         )

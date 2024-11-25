@@ -1,0 +1,23 @@
+<script>
+    $('#artistsTable').DataTable({
+        data: [
+            {%  for artist in artists %}
+    ['{{artist.id}}',
+    `{{artist.stage_name}}`,
+    `{{artist.albums_count}}`,
+    `{{ artist.tracks_count }}`,
+    `{{ artist.followers_count }}`,
+        '<div class="flex gap-2"><button class="btn btn-primary btn-sm">Follow</button ><button class="btn btn-success btn-sm">Play</button></div > '],
+        {% endfor %}
+        ],
+        columns: [
+        { title: 'ID' },
+        { title: 'Name' },
+        { title: 'Albums' },
+        { title: 'Tracks' },
+        { title: 'Popularity' },
+        { title: 'Actions' },
+
+    ]
+    });
+</script>

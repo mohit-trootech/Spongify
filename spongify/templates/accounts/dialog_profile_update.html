@@ -1,0 +1,32 @@
+{%load static%}
+<dialog id="dialog_profile_update" class="modal">
+    <div class="modal-box w-11/12 max-w-5xl" style="scrollbar-width: none; overflow-y: scroll;">
+        <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="text-2xl font-bold">Update Profile!</h3>
+        <form method="post" class="py-4" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+            <label class="form-control" for="{{field.id_for_label}}">
+                <div class="label">
+                    <span class="text-sm text-gray-900 font-bold">{{field.label}}</span>
+                </div>
+                {{field}}
+                {% if field.help_text %}
+                <div class="label">
+                    <span class="text-xs text-gray-500 italic">{{field.help_text}}</span>
+                </div>
+                {%endif%}
+            </label>
+            {% endfor %}
+            <div class="w-full flex justify-end mt-5 gap-2">
+                <button
+                    class="btn justify-end border border-zinc-900 hover:border-zinc-100 duration-100 transition">Update
+                    Location</button>
+                <button class="btn justify-end border border-zinc-900 hover:border-zinc-100 duration-100 transition"
+                    type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</dialog>

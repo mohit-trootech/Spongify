@@ -1,0 +1,72 @@
+{% load static %}
+<aside class="flex flex-col sticky top-0 h-screen w-72 bg-zinc-950 text-zinc-100 p-2 gap-2">
+  <a href="{% url 'home' %}" class="flex items-start ps-2.5 my-2">
+    <img src="{% static 'img/logo.png' %}" alt="Spongify Logo" class="h-10 w-10 me-2" />
+    <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Spongify</span>
+  </a>
+  <nav class="p-4 h-full bg-zinc-900/80 space-y-5 rounded-md overflow-auto">
+    <a href="{% url 'home' %}"
+      class="flex justify-start gap-3 text-sm font-semibold btn {%if request.path == '/'%}btn-success{%endif%}">
+      <i class="fa fa-home"></i>
+      Home
+    </a>
+    <a href=""
+      class="flex justify-start gap-3 text-sm font-semibold btn {%if request.path == '/search/'%}btn-neutral{%endif%}">
+      <i class="fa fa-magnifying-glass"></i>
+      Search
+    </a>
+    <a href="{%  url 'accounts:profile' request.user.username %}"
+      class="flex justify-start gap-3 text-sm font-semibold btn">
+      <i class="fa fa-list"></i>
+      Your Library
+    </a>
+    <a href="" class="flex justify-start gap-3 text-sm font-semibold btn">
+      <i class="fa fa-plus"></i>
+      Create Playlist
+    </a>
+    {% if request.user.artist %}
+    <p class="text-sm font-semibold text-zinc-400 italic">
+      Creator Mode: {{request.user.artist.stage_name}}
+    </p>
+    <a href="{% url 'music:create-album' %}"
+      class="flex justify-start gap-3 text-sm font-semibold btn {% if 'create-album' in request.path%}btn-success{%endif%}">
+      <i class="fa-brands fa-itunes-note"></i>
+      Create New Album
+    </a>
+    <a href="{% url 'music:create-song' %}"
+      class="flex justify-start gap-3 text-sm font-semibold btn {% if 'create-song' in request.path%}btn-success{%endif%}">
+      <i class="fa-brands fa-itunes-note"></i>
+      Add Songs to Album
+    </a>
+    <a href="" class="flex justify-start gap-3 text-sm font-semibold btn">
+      <i class="fa fa-expand"></i>
+      View Albums
+    </a>
+    {% else %}
+    <a href="{% url 'creator-join' %}" class="flex justify-start gap-3 text-sm font-semibold btn">
+      <i class="fa fa-expand"></i>
+      Join as Creator!
+    </a>
+    {% endif %}
+  </nav>
+  <div class="p-4 bg-zinc-900/80 text-zinc-100 space-y-5 rounded-md">
+    <a role="button" href="{% url 'accounts:logout' %}" class="flex flex-row items-center justify-between">
+      <div class="flex flex-row items-center gap-2 italic capitalize font-semibold">
+        <svg class="w-4 h-4 text-current fill-current" viewBox="0 0 24 24">
+          <path
+            d="M3 22a1 1 0 0 1-1-1V3a1 1 0 0 1 2 0v18a1 1 0 0 1-1 1zM15.5 2.134A1 1 0 0 0 14 3v18a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V6.464a1 1 0 0 0-.5-.866l-6-3.464zM9 2a1 1 0 0 0-1 1v18a1 1 0 1 0 2 0V3a1 1 0 0 0-1-1z">
+          </path>
+        </svg>
+        {% if request.user.first_name %}
+        {{request.user.get_full_name}}
+        {%else%}
+        {{request.user.username}}
+        {%endif%}
+      </div>
+      <div class="flex flex-row items-center text-zinc-400 gap-4">
+        <button>
+          <i class="fa fa-right-from-bracket  "></i>
+        </button>
+      </div>
+    </a>
+</aside>

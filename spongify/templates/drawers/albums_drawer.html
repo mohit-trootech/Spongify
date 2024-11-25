@@ -1,0 +1,28 @@
+<div class="drawer drawer-end">
+    <!-- Toggle Drawer Checkbox -->
+    <input id="albums-drawer" type="checkbox" class="drawer-toggle" />
+
+    <!-- Button to trigger the drawer -->
+    <div class="flex justify-end">
+        <label for="albums-drawer"
+            class="drawer-button text-sm text-zinc-100 btn btn-sm btn-primary btn-neutral hover:btn">
+            Show more
+        </label>
+    </div>
+
+    <!-- Full Page Size Drawer -->
+    <div class="drawer-side z-[9999] w-full h-full">
+        <label for="albums-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+        <div class="menu bg-black text-base-content text-white min-h-full w-full p-5">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-3xl font-bold">Available Albums</h1>
+                <label for="albums-drawer"
+                    class="btn btn-sm btn-circle bg-white text-black hover:bg-neutral-200 mr-2 transition ease-in-out duration-200 hover:rotate-180">✕
+                </label>
+            </div>
+            <div>
+                {% include 'pages/albums.html' %}
+            </div>
+        </div>
+    </div>
+</div>

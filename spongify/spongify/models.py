@@ -26,5 +26,16 @@ class EmailTemplate(models.Model):
         return self.choice
 
     class Meta:
-        verbose_name = "Email Template"
-        verbose_name_plural = "Email Templates"
+        verbose_name = VerboseNames.EMAIL_TEMPLATE
+        verbose_name_plural = VerboseNames.EMAIL_TEMPLATES
+
+
+class CreatorWaitlist(models.Model):
+    """Creator Waitlist"""
+
+    user = models.ForeignKey(
+        "accounts.User", on_delete=models.CASCADE, related_name="creator_waitlist"
+    )
+
+    def __str__(self):
+        return self.user.username
