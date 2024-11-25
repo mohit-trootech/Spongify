@@ -1,5 +1,5 @@
 {% load static %}
-{% if request.user.library.followed_artists %}
+{% if request.user.library.followed_artists.all %}
 <section class="p-6" id="favorites">
     <div class="flex flex-row items-center justify-between">
         <h2 class="text-2xl font-semibold">Favourite Artists</h2>

@@ -1,5 +1,5 @@
 {% load static %}
-{% if request.user.library.saved_albums %}
+{% if request.user.library.saved_albums.all %}
 <section class="p-6" id="favorites">
     <div class="flex flex-row items-center justify-between">
         <h2 class="text-2xl font-semibold">Saved Albums</h2>

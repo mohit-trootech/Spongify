@@ -6,13 +6,13 @@ class VerboseNames:
     """Spongify App Verbose Names"""
 
     # Email Template Model
-    EMAIL_TEMPLATE = "Email Template"
-    EMAIL_TEMPLATES = "Email Templates"
-    SUBJECT = "Subject"
-    BODY = "Body"
-    TEMPLATE = "Email Template"
-    CHOICE = "Choice"
-    IS_HTML = "Is HTML"
+    EMAIL_TEMPLATE = _("Email Template")
+    EMAIL_TEMPLATES = _("Email Templates")
+    SUBJECT = _("Subject")
+    BODY = _("Body")
+    TEMPLATE = _("Email Template")
+    CHOICE = _("Choice")
+    IS_HTML = _("Is HTML")
 
 
 class EmailTemplatesChoice:
@@ -60,9 +60,9 @@ class Reverse:
 class AuthErrors:
     """Music Authentication Errors"""
 
-    NOT_REGISTERED = "User is not authenticated, Login to continue."
-    ARTIST_NOT_FOUND = "Artist Not Found!"
-    USER_NOT_FOUND = "User Not Found!"
+    NOT_REGISTERED = _("User is not authenticated, Login to continue.")
+    ARTIST_NOT_FOUND = _("Artist Not Found!")
+    USER_NOT_FOUND = _("User Not Found!")
 
 
 class AuthMessages:

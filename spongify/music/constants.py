@@ -66,6 +66,11 @@ class VerboseNames:
     TRACK_M2M_ARTIST = "tracks"
     GENRE = "Genre"
 
+    # Popularity
+    POPULARITY = "popularity"
+    POPULARITY_SCORE = "Popularity Score"
+    POPULARITIES_SCORE = "Popularities Score"
+
 
 class Templates:
     """Music App Templates"""
@@ -90,15 +95,19 @@ class HelpTexts:
     """Music App Form Help Texts"""
 
     ALBUM = {
-        "cover_art": "Please choose a high quality cover art, please use your own materials.",
-        "release_date": "This date & time will be used to release this album world wide.",
+        "cover_art": _(
+            "Please choose a high quality cover art, please use your own materials."
+        ),
+        "release_date": _(
+            "This date & time will be used to release this album world wide."
+        ),
     }
     TRACK = {
-        "title": "Enter track title",
-        "album": "Select track album",
-        "file": "Upload track file",
-        "genre": "Select track genre",
-        "artists": "Select track artists",
+        "title": _("Enter track title"),
+        "album": _("Select track album"),
+        "file": _("Upload track file"),
+        "genre": _("Select track genre"),
+        "artists": _("Select track artists"),
     }
 
 
@@ -106,16 +115,16 @@ class Labels:
     """Music App Form Labels"""
 
     ALBUM = {
-        "name": "Enter album name",
-        "cover_art": "Upload album cover art",
-        "release_date": "Select album release date",
+        "name": _("Enter album name"),
+        "cover_art": _("Upload album cover art"),
+        "release_date": _("Select album release date"),
     }
     TRACK = {
-        "title": "Enter track title",
-        "album": "Select track album",
-        "file": "Upload track file",
-        "genre": "Select track genre",
-        "artists": "Select track artists",
+        "title": _("Enter track title"),
+        "album": _("Select track album"),
+        "file": _("Upload track file"),
+        "genre": _("Select track genre"),
+        "artists": _("Select track artists"),
     }
 
 
@@ -123,14 +132,27 @@ class PlaceHolders:
     """Music App Form PlaceHolders"""
 
     ALBUM = {
-        "name": "Enter album name",
-        "cover_art": "Upload album cover art",
-        "release_date": "Select album release date",
+        "name": _("Enter album name"),
+        "cover_art": _("Upload album cover art"),
+        "release_date": _("Select album release date"),
     }
     TRACK = {
-        "title": "Enter track title",
-        "album": "Select track album",
-        "file": "Upload track file",
-        "genre": "Select track genre",
-        "artists": "Select track artists",
+        "title": _("Enter track title"),
+        "album": _("Select track album"),
+        "file": _("Upload track file"),
+        "genre": _("Select track genre"),
+        "artists": _("Select track artists"),
     }
+
+
+class AuthMessages:
+    """Auth Messages"""
+
+    pass
+
+
+class AuthErrors:
+    """Auth Errors"""
+
+    UNAUTHENTICATED = _("User is unauthenticated")
+    NOT_ARTIST = _("User is not an artist")

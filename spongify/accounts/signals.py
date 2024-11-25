@@ -11,4 +11,4 @@ User = get_model(app_name="accounts", model_name="User")
 def send_mail_after_user_creation(sender, instance, created, **kwargs):
     if created:
         pass
-        # customer_registration_mail.delay(id=instance.id) # TODO: Update this
+        # customer_registration_mail.delay(id=instance.id) # TODO: Uncomment in Final Version

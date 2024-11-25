@@ -5,6 +5,7 @@ from ast import literal_eval
 from utils.base_utils import get_model
 from django.http import JsonResponse
 from library.constants import RequestTypes, AuthMessages
+from library.forms import UserPlaylistForm
 
 
 @method_decorator(csrf_exempt, name="dispatch")
@@ -36,6 +37,7 @@ class UserAlbum(View):
                 return JsonResponse({"message": AuthMessages.ALBUM_ADDED})
             elif request_data["type"] == RequestTypes.REMOVE_ALBUM:
                 album_id = request_data["id"]
+                breakpoint()
                 model = get_model("music", "Album")
                 album = model.objects.get(pk=album_id)
                 user_library = request.user.library
@@ -60,3 +62,17 @@ class UserAlbum(View):
 
 
 user_album = UserAlbum.as_view()
+
+
+class CreatePlaylistView(View):
+    def post(self, request, *args, **kwargs):
+        """Handles Form Submission to Create Authorized User's Playlist"""
+        form = UserPlaylistForm(request.POST)
+        breakpoint()
+        if form.is_valid():
+            form.save()
+            return JsonResponse({"message": "Playlist created successfully"})
+        return JsonResponse({"errors": form.errors}, status=400)
+
+
+playlist_view = CreatePlaylistView.as_view()

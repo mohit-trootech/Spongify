@@ -69,7 +69,6 @@ const updatePlayerDetails = () => {
 };
 const setAudioSrc = (data) => {
   audioSrc = data;
-  //   updatePlayerProgress();
 };
 const setSongs = (data) => {
   songs = data;
@@ -167,15 +166,11 @@ const updatePlayerProgress = () => {
   const currentDuration = document.getElementsByClassName("current-progress");
   const songDuration = document.getElementsByClassName("song-progress");
   songDuration[0].innerText = durationReadbleFormat(current.duration);
-  songDuration[1].innerText = durationReadbleFormat(current.duration);
   /**Audio on Time Update is Not a Function */
   progress[0].max = current.duration;
-  progress[1].max = current.duration;
   audio.ontimeupdate = () => {
     progress[0].value = audio.currentTime;
-    progress[1].value = audio.currentTime;
     currentDuration[0].innerText = durationReadbleFormat(audio.currentTime);
-    currentDuration[1].innerText = durationReadbleFormat(audio.currentTime);
   };
 };
 const repeatSong = (elem) => {

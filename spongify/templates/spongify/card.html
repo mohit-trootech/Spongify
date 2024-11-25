@@ -92,7 +92,7 @@
                 <div tabindex="0" role="button" class="btn btn-sm btn-ghost m-1">
                     <i class="fa fa-ellipsis-vertical"></i>
                 </div>
-                <ul tabindex="0" class="dropdown-content menu bg-base-200 rounded-box w-56 z-[999999]">
+                <ul tabindex="0" class="dropdown-content menu bg-base-200 rounded-box w-56 z-[999]">
                     <li><a role="button">Add to Queue</a></li>
                     <li><a role="button" onclick="likeSong(this)" id="song-{{instance.id}}">Add to Favourites</a></li>
                     <li><a role="button" onclick="unlikeSong(this)" id="song-{{instance.id}}">
@@ -109,9 +109,7 @@
                                 {% endfor %}
                                 {% endif %}
                                 <li>
-                                    <a>
-                                        <i class="fa fa-plus"></i>Create New Playlist
-                                    </a>
+                                    {% include "modals/create-playlist.html" %}
                                 </li>
                             </ul>
                         </details>

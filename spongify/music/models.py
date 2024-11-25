@@ -121,24 +121,28 @@ class Track(TitleSlugDescriptionModel, ActivatorModel, TimeStampedModel):
 
 
 class AlbumPopularity(Model):
-    artist = OneToOneField("music.Artist", on_delete=CASCADE, related_name="popularity")
+    artist = OneToOneField(
+        "music.Artist", on_delete=CASCADE, related_name=VerboseNames.POPULARITY
+    )
     score = IntegerField(default=0)
 
     def __str__(self):
         return f"{self.artist.stage_name} Popularity"
 
     class Meta:
-        verbose_name = "Popularity"
-        verbose_name_plural = "Popularities"
+        verbose_name = VerboseNames.POPULARITY_SCORE
+        verbose_name_plural = VerboseNames.POPULARITIES_SCORE
 
 
 class TrackPopularity(Model):
-    track = OneToOneField("music.Track", on_delete=CASCADE, related_name="popularity")
+    track = OneToOneField(
+        "music.Track", on_delete=CASCADE, related_name=VerboseNames.POPULARITY
+    )
     score = IntegerField(default=0)
 
     def __str__(self):
         return f"{self.track.title} Popularity"
 
     class Meta:
-        verbose_name = "Popularity"
-        verbose_name_plural = "Popularities"
+        verbose_name = VerboseNames.POPULARITY_SCORE
+        verbose_name_plural = VerboseNames.POPULARITIES_SCORE

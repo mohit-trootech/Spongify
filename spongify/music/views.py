@@ -5,6 +5,7 @@ from music.forms import AlbumForm, TrackForm
 from utils.base_utils import get_model
 from django.db.models import Q
 from django.http import JsonResponse
+from music.constants import AuthErrors
 
 Artist = get_model("music", "Artist")
 Album = get_model("music", "Album")
@@ -17,10 +18,10 @@ class CreateAlbumView(FormView, SuccessMessageMixin):
 
     def form_valid(self, form):
         if not self.request.user.is_authenticated:
-            form.add_error(None, "User is Authenticated")
+            form.add_error(None, AuthErrors.UNAUTHENTICATED)
             return self.form_invalid(form)
         if not Artist.objects.filter(user=self.request.user).exists():
-            form.add_error(None, "User is not an Artist")
+            form.add_error(None, AuthErrors.NOT_ARTIST)
             return self.form_invalid(form)
         album = form.save(commit=False)
         album.artist = Artist.objects.get(user=self.request.user)
@@ -41,7 +42,6 @@ class CreateSongView(FormView):
         artists = self.request.POST.getlist("artists")
         album = self.request.POST.get("album")
         track.album = Album.objects.get(id=album)
-        track.save()
         track.artists.set(artists)
         track.save()
         return super().form_valid(form)

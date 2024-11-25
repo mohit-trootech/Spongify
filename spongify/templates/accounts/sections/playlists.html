@@ -1,12 +1,13 @@
 {% load static %}
+{%if request.user.playlists.all %}
 <section class="p-6" id="favorites">
     <div class="flex flex-row items-center justify-between">
-        <h2 class="text-2xl font-semibold">Saved Albums</h2>
+        <h2 class="text-2xl font-semibold">Created Playlists</h2>
         <span class="text-sm text-zinc-400">Show More</span>
     </div>
     <!-- Button Carousel Saved Tracks -->
     <div class="mt-4 -ml-3 grid grid-cols-5 gap-2">
-        {% for album in request.user.library.saved_albums.all|slice:"0:5" %}
+        {% for album in request.user.playlists.all|slice:"0:5" %}
         <div class="flex flex-col p-3 cursor-pointer gap-2 rounded-md hover:bg-white/5">
             {% if album.cover %}
             <img src="{{song.cover.url}}" alt="cover" class="w-full h-full object-cover rounded-lg shadow-lg w-full">
@@ -28,3 +29,4 @@
         {% endfor %}
     </div>
 </section>
+{%endif%}
