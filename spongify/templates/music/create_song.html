@@ -1,0 +1,99 @@
+{%extends 'index.html'%}
+{%load static%}
+
+{%block title%}Add Songs{%endblock%}
+
+{%block styling%}{%endblock%}
+
+{%block js%}
+<script src="{% static 'js/music.js' %}"></script>
+{%endblock%}
+
+{% block side_content %}
+<div
+    class="flex flex-col text-slate-900 my-5 justify-center items-center w-full bg-white py-10 px-5 max-w-md mx-auto rounded-lg shadow-xl">
+    <div>
+        <img src="{% static 'img/logo.png' %}" class="h-24 w-24 mx-auto" />
+    </div>
+    <form action="" method="post" class="max-w-md w-full" enctype="multipart/form-data">
+        {%csrf_token%}
+        <div class="flex flex-col space-y-2">
+            {%csrf_token%}
+            {% for field in form %}
+            <label class="form-control" for="{{field.id_for_label}}">
+                <div class="label">
+                    <span class="text-sm font-bold">{{field.label}}</span>
+                </div>
+                {{field}}
+                {% if field.help_text %}
+                <div class="label">
+                    <span class="text-xs text-gray-500 italic">{{field.help_text}}</span>
+                </div>
+                {%endif%}
+            </label>
+            {% endfor %}
+            <label class="form-control" for="id_for_album">
+                <div class="label">
+                    <span class="text-sm font-bold">Choose Album</span>
+                </div>
+                <input list="albums_lists" onkeyup="albumChange(this)"
+                    class="input text-black bg-white input-sm input-bordered input-primary" id="id_for_album"
+                    name="album" />
+                <div class="label">
+                    <span class="text-xs text-gray-500 italic">Please type here to find album options.</span>
+                </div>
+            </label>
+            <datalist id="albums_lists">
+            </datalist>
+            <label class="form-control" for="id_for_artists">
+                <div class="label">
+                    <span class="text-sm font-bold">Find Artists</span>
+                </div>
+                <input type="text" id="find_artists"
+                    class="input text-black bg-white input-sm input-bordered input-primary"
+                    onkeydown="findArtistHandle(this)">
+                <div class="label">
+                    <span class="text-xs text-gray-500 italic">Please type here to find artists.</span>
+                </div>
+            </label>
+
+            <label class="form-control" for="id_for_artists">
+                <div class="label">
+                    <span class="text-sm font-bold">Choose Artists</span>
+                </div>
+                <select name="artists" id="id_for_artists"
+                    class="select text-black bg-white input-sm select-bordered select-primary w-full"
+                    aria-placeholder="Please Choose Artists" multiple>
+                </select>
+
+                <div class="label">
+                    <span class="text-xs text-gray-500 italic">Please choose artists.</span>
+                </div>
+            </label>
+            <button class="btn btn-primary transition ease-in duration-150 scale-95 hover:scale-100 text-gray-100">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
+                </svg>
+
+                <span>Confirm Details</span>
+            </button>
+            <p class="text-center text-gray-500 text-sm">New Release ? <a href="{% url 'music:create-song' %}"
+                    class="text-gray-700 hover:text-blue-500 italic font-medium inline-flex space-x-1 items-center">
+                    <span>
+                        Create Album then
+                    </span>
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                    </span>
+                </a>
+            </p>
+        </div>
+    </form>
+</div>
+{% endblock %}

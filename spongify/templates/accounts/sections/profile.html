@@ -1,0 +1,60 @@
+{%load static%}
+<section class="group/item" id="profile">
+    <div class="px-6 py-3 bg-gradient-to-b from-green-500/50">
+        <div class="flex items-center mt-5 space-x-6">
+            <!-- Profile Picture -->
+            <div class="avatar">
+                <div class="w-40 h-40 border border-primary border-4 rounded-full">
+                    {% if request.user.image %}
+                    <img src="{{request.user.image.url}}" alt="Profile Image">
+                    {%else%}
+                    <img src="{% static 'img/profile.jpg' %}" alt="Profile Image">
+                    {%endif%}
+                </div>
+            </div>
+            <div>
+                <!-- User Info -->
+                <h1 class="text-4xl font-bold capitalize">
+                    {% if request.user.get_full_name %}
+                    {{request.user.get_full_name}}
+                    {%else%}
+                    {{request.user.username}}
+                    {%endif%}
+                </h1>
+                <p class="text-lg text-sm italic text-zinc-500">{{request.user.email}}</p>
+                <p class="text-sm text-zinc-400 mt-2 capitalize">
+                    {% if request.user.gender %}
+                    <span class="mr-3 ">
+                        {{request.user.gender}}
+                    </span>
+                    <span class="mr-3 border-r border-gray-200"> </span>
+                    {% endif %}
+                    {% if request.user.age %}
+                    <span class="mr-3 ">
+                        {{request.user.age}}
+                    </span>
+                    <span class="mr-3 border-r border-gray-200"> </span>
+                    {% endif %}
+                    India
+                </p>
+
+                <!-- Call to Action Buttons -->
+                <div class="mt-4 flex items-center space-x-4">
+                    <button class="btn btn-success text-zinc-100 text-lg">Follow</button>
+                    <button class="btn btn-primary text-zinc-100 text-lg"
+                        onclick="dialog_profile_update.showModal()">Update
+                        Profile</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bio Section -->
+        <div class="mt-8">
+            <h2 class="text-2xl font-semibold mb-4">About Me</h2>
+            <p class="text-lg text-error">
+                <!-- Todo Update List to Add Bio Field in Model -->
+                This section is currently empty. Please update your user profile to add a bio.
+            </p>
+        </div>
+    </div>
+</section>

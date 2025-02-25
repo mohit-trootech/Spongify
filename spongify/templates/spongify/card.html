@@ -1,0 +1,133 @@
+{%load static%}
+<div class="p-5 hover:shadow-lg rounded hover:bg-neutral-800 transition duration-300 w-80 mx-auto">
+    <div class="relative">
+        {% if type == 'artist' %}
+        {% if instance.user.image %}
+        <img src="{{instance.user.image.url}}"
+            class="block h-72 object-cover bg-transparent shadow-lg {% if type == 'artist' %}rounded-full{% endif %}"
+            alt="cover" />
+        {% else %}
+        <img src="{% static 'img/profile.jpg' %}"
+            class="block h-72 object-cover bg-transparent shadow-lg {% if type == 'artist' %}rounded-full{% endif %}"
+            alt="cover" />
+        {% endif %}
+        {% elif type == 'album' %}
+        {% if instance.cover_art %}
+        <img src="{{instance.cover_art.url}}"
+            class="block h-72 object-cover bg-transparent shadow-lg {% if type == 'artist' %}rounded-full{% endif %}"
+            alt="cover" />
+        {% else %}
+        <img src="{% static 'img/profile.jpg' %}"
+            class="block h-72 object-cover bg-transparent shadow-lg {% if type == 'artist' %}rounded-full{% endif %}"
+            alt="cover" />
+        {% endif %}
+        {% elif type == 'track' %}
+        {% if instance.cover %}
+        <img src="{{instance.cover.url}}"
+            class="block h-72 object-cover bg-transparent shadow-lg {% if type == 'artist' %}rounded-full{% endif %}"
+            alt="cover" />
+        {% else %}
+        <img src="{% static 'img/profile.jpg' %}"
+            class="block h-72 object-cover bg-transparent shadow-lg {% if type == 'artist' %}rounded-full{% endif %}"
+            alt="cover" />
+        {% endif %}
+        {% else %}
+        <img src="{% static 'img/profile.jpg' %}"
+            class="block h-72 object-cover bg-transparent shadow-lg {% if type == 'artist' %}rounded-full{% endif %}"
+            alt="cover" />
+        {% endif %}
+        {% if type == 'artist' %}
+        <button onclick="artistPlayer(this)" id="play-artist-{{instance.id}}"
+            class="absolute bottom-0 right-0 border-0 mb-3 mr-3 btn btn-circle shadow-md transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">
+            <i class="fa fa-play text-gray-100 text-xl"></i>
+        </button>
+        {% elif type == 'album' %}
+        <button onclick="albumPlayer(this)" id="play-album-{{instance.id}}"
+            class="absolute bottom-0 right-0 border-0 mb-3 mr-3 btn btn-circle shadow-md transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">
+            <i class="fa fa-play text-gray-100 text-xl"></i>
+        </button>
+        {% elif type == 'track' %}
+        <button onclick="trackPlayer(this)" id="play-track-{{instance.id}}"
+            class="absolute bottom-0 right-0 border-0 mb-3 mr-3 btn btn-circle shadow-md transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">
+            <i class="fa fa-play text-gray-100 text-xl"></i>
+        </button>
+        {% endif %}
+    </div>
+    <div class="my-3">
+        {% if type == 'artist' %}
+        <div class="flex justify-between items-center">
+            <h2 class="card-title capitalize">{{instance.stage_name}}</h2>
+        </div>
+        <p class="font-light italic truncate">
+            Available Albums: {{instance.albums.all.count}} Albums
+        </p>
+        {% elif type == 'album' %}
+        <div class="flex justify-between items-center">
+            <h2 class="card-title capitalize">{{instance.name}}</h2>
+            <div class="dropdown">
+                <div tabindex="0" role="button" class="btn btn-sm btn-ghost m-1">
+                    <i class="fa fa-ellipsis-vertical"></i>
+                </div>
+                <ul tabindex="0" class="dropdown-content menu bg-base-200 rounded-box w-56 z-[999999]">
+                    <li>
+                        <a role="button" id="album-{{instance.id}}" onclick="likeAlbum(this)">
+                            Add Album to Library
+                        </a>
+                    </li>
+                    <li>
+                        <a role="button" id="album-{{instance.id}}" onclick="unlikeAlbum(this)">
+                            Remove Album to Library
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <p class="font-light italic truncate">
+            {{instance.tracks.count}} Songs | {{instance.release_date|date:"jS F Y"}}
+        </p>
+        {% elif type == 'track' %}
+        <div class="flex justify-between items-center">
+            <h2 class="card-title capitalize">{{instance.title}}</h2>
+            <div class="dropdown">
+                <div tabindex="0" role="button" class="btn btn-sm btn-ghost m-1">
+                    <i class="fa fa-ellipsis-vertical"></i>
+                </div>
+                <ul tabindex="0" class="dropdown-content menu bg-base-200 rounded-box w-56 z-[999]">
+                    <li><a role="button">Add to Queue</a></li>
+                    <li><a role="button" onclick="likeSong(this)" id="song-{{instance.id}}">Add to Favourites</a></li>
+                    <li><a role="button" onclick="unlikeSong(this)" id="song-{{instance.id}}">
+                            Remove From Favourites
+                        </a></li>
+                    <li>
+                        <details>
+                            <summary>Add to Playlist</summary>
+                            <ul>
+                                {% if request.user.playlists.all %}
+                                {% for playlist in request.user.playlists.all %}
+                                <li><a role="button" onclick="likeSong(this)"
+                                        id="song-{{instance.id}}">{{playlist.name}}</a></li>
+                                {% endfor %}
+                                {% endif %}
+                                <li>
+                                    {% include "modals/create-playlist.html" %}
+                                </li>
+                            </ul>
+                        </details>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <p class="font-light italic truncate" title="
+         {% if instance.artists.all %}{% for artist in instance.artists.all %}{{artist.stage_name}} {%if not forloop.last %}, {% endif %}{% endfor %}{% endif %}
+        ">
+            Artists:
+            {% if instance.artists.all %}
+            {% for artist in instance.artists.all %}
+            {{artist.stage_name}} {%if not forloop.last %}, {% endif %}
+            {% endfor %}
+            {% endif %}
+        </p>
+        {% endif %}
+    </div>
+</div>

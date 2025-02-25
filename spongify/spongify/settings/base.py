@@ -8,7 +8,7 @@ from utils.constants import SpogifySettings as Settings
 
 # APPEND_SLASH -  Append slash to the end of URLs
 # =====================================================
-APPEND_SLASH = False
+APPEND_SLASH = True
 
 # BASE_DIR - Project ROOT Directory Path Reference
 # =====================================================
@@ -45,6 +45,8 @@ DJANGO_APPS = [
 AUTH_APPS = [
     "spongify",
     "accounts.apps.AccountsConfig",
+    "library.apps.LibraryConfig",
+    "music.apps.MusicConfig",
 ]
 THIRD_PARTY_APPS = [
     "django_extensions",
@@ -68,7 +70,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "login_required.middleware.LoginRequiredMiddleware",
-    # "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 # TEMPLATES - HTML files placeholder
@@ -96,6 +98,8 @@ TEMPLATES = [
 LOGIN_REQUIRED_IGNORE_PATHS = [
     "/accounts/login/$",
     "/accounts/register/$",
+    "/accounts/password-reset/$",
+    "/accounts/password-reset-done/$",
     "/admin/$",
     "/about/$",
 ]
@@ -200,42 +204,42 @@ CELERY_ENABLE_UTC = CeleryConfig.CELERY_ENABLE_UTC
 
 
 # Logging Configuration - Log only data I wanted to log in project
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "formatters": {
-        "verbose": {
-            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
-            "style": "{",
-        },
-        "simple": {
-            "format": "{levelname} {message}",
-            "style": "{",
-        },
-    },
-    "handlers": {
-        "file": {
-            "level": "DEBUG",
-            "class": "logging.FileHandler",
-            "filename": "debug.log",
-            "formatter": "verbose",
-        },
-    },
-    "loggers": {
-        "django": {
-            "handlers": ["file"],
-            "level": "DEBUG",
-            "propagate": True,
-        },
-        "utils": {
-            "handlers": ["file"],
-            "level": "DEBUG",
-            "propagate": True,
-        },
-        "accounts": {
-            "handlers": ["file"],
-            "level": "DEBUG",
-            "propagate": True,
-        },
-    },
-}
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "formatters": {
+#         "verbose": {
+#             "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+#             "style": "{",
+#         },
+#         "simple": {
+#             "format": "{levelname} {message}",
+#             "style": "{",
+#         },
+#     },
+#     "handlers": {
+#         "file": {
+#             "level": "DEBUG",
+#             "class": "logging.FileHandler",
+#             "filename": "debug.log",
+#             "formatter": "verbose",
+#         },
+#     },
+#     "loggers": {
+#         "django": {
+#             "handlers": ["file"],
+#             "level": "DEBUG",
+#             "propagate": True,
+#         },
+#         "utils": {
+#             "handlers": ["file"],
+#             "level": "DEBUG",
+#             "propagate": True,
+#         },
+#         "accounts": {
+#             "handlers": ["file"],
+#             "level": "DEBUG",
+#             "propagate": True,
+#         },
+#     },
+# }

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content%}
+<div class="flex bg-zinc-900 text-zinc-50 flex-col">
+  <div class="flex flex-1 h-[calc(100vh-97px)]">
+    {% include 'spongify/aside.html' %}
+    <main class="flex-1 bg-zinc-900">
+      <div class="group/item bg-transparent">
+        <div class="px-6 py-3 bg-gradient-to-b from-green-500/50">
+          {% include 'spongify/navbar.html' %}
+          {% include "spongify/banners.html" %}
+        </div>
+      </div>
+      {% block side_content %}
+      {% include 'home.html' %}
+      {% include 'spongify/player.html' %}
+      {% endblock %}
+    </main>
+  </div>
+</div>
+{% endblock %}
